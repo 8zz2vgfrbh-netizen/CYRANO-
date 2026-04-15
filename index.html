@@ -3,1167 +3,1575 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>CYRANO — Relational Intelligence</title>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --black: #0A0A0A;
-    --near-black: #111111;
-    --dark: #1A1A1A;
-    --gold: #C9A84C;
-    --gold-light: #E8C97A;
-    --gold-dim: rgba(201,168,76,0.15);
-    --white: #FFFFFF;
-    --off-white: #F5F2ED;
-    --gray: #888888;
-    --light-gray: #CCCCCC;
-    --danger: #C0392B;
-  }
-
-- { margin: 0; padding: 0; box-sizing: border-box; }
-
+:root {
+  --black: #080808;
+  --near-black: #0F0F0F;
+  --dark: #181818;
+  --dark2: #222222;
+  --gold: #C9A84C;
+  --gold-light: #E2C06A;
+  --gold-dim: rgba(201,168,76,0.12);
+  --gold-border: rgba(201,168,76,0.25);
+  --white: #FFFFFF;
+  --off-white: #F0EDE8;
+  --gray: #777777;
+  --light-gray: #AAAAAA;
+  --subtle: rgba(255,255,255,0.06);
+  --radius: 3px;
+}
+* { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+html, body { height:100%; overflow:hidden; }
 body {
-background: var(–black);
-color: var(–white);
-font-family: ‘Montserrat’, sans-serif;
-font-weight: 300;
-min-height: 100vh;
-overflow-x: hidden;
+  background: var(--black);
+  color: var(--white);
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 300;
+  font-size: 14px;
 }
 
 /* ── SCREENS ── */
-.screen { display: none; min-height: 100vh; }
-.screen.active { display: flex; flex-direction: column; }
+.screen { display:none; height:100%; flex-direction:column; overflow:hidden; }
+.screen.active { display:flex; }
 
-/* ── API KEY SCREEN ── */
-#screen-apikey {
-align-items: center;
-justify-content: center;
-padding: 40px 24px;
-text-align: center;
-}
-.apikey-inner { max-width: 420px; width: 100%; }
-.logo-mark {
-font-family: ‘Cormorant Garamond’, serif;
-font-size: 52px;
-font-weight: 300;
-letter-spacing: 8px;
-color: var(–white);
-margin-bottom: 4px;
-}
-.logo-sub {
-font-size: 9px;
-letter-spacing: 4px;
-color: var(–gold);
-text-transform: uppercase;
-margin-bottom: 48px;
-}
-.apikey-label {
-font-size: 10px;
-letter-spacing: 2px;
-color: var(–gray);
-text-transform: uppercase;
-margin-bottom: 12px;
-text-align: left;
-}
-.apikey-input {
-width: 100%;
-background: var(–dark);
-border: 1px solid rgba(201,168,76,0.3);
-color: var(–white);
-font-family: ‘Montserrat’, sans-serif;
-font-size: 12px;
-padding: 16px;
-border-radius: 2px;
-outline: none;
-margin-bottom: 16px;
-transition: border-color 0.3s;
-}
-.apikey-input:focus { border-color: var(–gold); }
-.apikey-note {
-font-size: 10px;
-color: var(–gray);
-margin-bottom: 32px;
-line-height: 1.6;
-text-align: left;
-}
-
-/* ── LANDING SCREEN ── */
-#screen-landing {
-align-items: center;
-justify-content: center;
-padding: 60px 24px;
-text-align: center;
+/* ══════════════════════════════════════
+SCREEN 1: LANGUAGE
+══════════════════════════════════════ */
+#s-lang {
+align-items:center;
+justify-content:center;
+padding: 40px 32px;
+background: var(–black);
 position: relative;
-overflow: hidden;
 }
-#screen-landing::before {
-content: ‘’;
-position: absolute;
-top: 50%;
-left: 50%;
-transform: translate(-50%, -50%);
-width: 600px;
-height: 600px;
-background: radial-gradient(ellipse, rgba(201,168,76,0.04) 0%, transparent 70%);
-pointer-events: none;
+#s-lang::before {
+content:’’;
+position:absolute;
+inset:0;
+background: radial-gradient(ellipse at 50% 40%, rgba(201,168,76,0.05) 0%, transparent 65%);
+pointer-events:none;
 }
-.landing-inner { max-width: 480px; width: 100%; position: relative; }
-.landing-logo {
+.lang-inner { max-width:380px; width:100%; text-align:center; position:relative; }
+.brand-title {
 font-family: ‘Cormorant Garamond’, serif;
-font-size: 72px;
+font-size: 56px;
 font-weight: 300;
-letter-spacing: 12px;
+letter-spacing: 14px;
 color: var(–white);
-margin-bottom: 2px;
 animation: fadeUp 1s ease forwards;
 }
-.landing-tagline {
-font-size: 9px;
-letter-spacing: 4px;
+.brand-rule {
+width:50px; height:1px;
+background: var(–gold);
+margin: 12px auto 10px;
+animation: expandW 1s ease 0.3s both;
+}
+.brand-sub {
+font-size: 8px;
+letter-spacing: 5px;
 color: var(–gold);
 text-transform: uppercase;
-margin-bottom: 48px;
-animation: fadeUp 1s ease 0.2s both;
+margin-bottom: 52px;
+animation: fadeUp 1s ease 0.4s both;
 }
-.gold-line {
-width: 40px;
-height: 1px;
-background: var(–gold);
-margin: 0 auto 40px;
-animation: expandLine 1s ease 0.4s both;
-}
-.landing-promise {
-font-family: ‘Cormorant Garamond’, serif;
-font-size: 22px;
-font-weight: 300;
-font-style: italic;
-color: var(–off-white);
-line-height: 1.6;
-margin-bottom: 48px;
+.lang-label {
+font-size: 9px;
+letter-spacing: 3px;
+color: var(–gray);
+text-transform: uppercase;
+margin-bottom: 20px;
 animation: fadeUp 1s ease 0.5s both;
 }
-.landing-desc {
-font-size: 11px;
-color: var(–gray);
-line-height: 1.8;
-letter-spacing: 0.5px;
-margin-bottom: 56px;
+.lang-grid {
+display: grid;
+grid-template-columns: 1fr 1fr 1fr;
+gap: 10px;
+margin-bottom: 0;
 animation: fadeUp 1s ease 0.6s both;
 }
-
-/* ── SCENARIO SCREEN ── */
-#screen-scenario { padding: 48px 24px; }
-.screen-header {
-text-align: center;
-margin-bottom: 40px;
-}
-.screen-title {
-font-family: ‘Cormorant Garamond’, serif;
-font-size: 32px;
-font-weight: 300;
-letter-spacing: 3px;
-margin-bottom: 8px;
-}
-.screen-subtitle {
-font-size: 10px;
-letter-spacing: 2px;
-color: var(–gold);
-text-transform: uppercase;
-}
-.scenarios-grid {
-display: grid;
-grid-template-columns: 1fr 1fr;
-gap: 12px;
-max-width: 480px;
-margin: 0 auto 40px;
-}
-.scenario-card {
+.lang-btn {
+padding: 18px 10px;
 background: var(–dark);
-border: 1px solid rgba(255,255,255,0.06);
-padding: 20px 16px;
-border-radius: 2px;
+border: 1px solid rgba(255,255,255,0.08);
+color: var(–light-gray);
+font-family: ‘Montserrat’, sans-serif;
+font-size: 11px;
+font-weight: 500;
+letter-spacing: 1px;
 cursor: pointer;
-transition: all 0.3s;
-text-align: center;
+border-radius: var(–radius);
+transition: all 0.25s;
 }
-.scenario-card:hover, .scenario-card.selected {
+.lang-btn:hover, .lang-btn.sel {
 border-color: var(–gold);
+color: var(–gold);
 background: var(–gold-dim);
 }
-.scenario-icon { font-size: 20px; margin-bottom: 8px; }
-.scenario-name {
-font-size: 10px;
-letter-spacing: 1.5px;
-text-transform: uppercase;
-color: var(–light-gray);
-font-weight: 500;
-}
-.scenario-card.selected .scenario-name { color: var(–gold); }
 
-/* ── INTAKE SCREEN ── */
-#screen-intake {
+/* ══════════════════════════════════════
+SCREEN 2: DISCLAIMER
+══════════════════════════════════════ */
+#s-disc {
 padding: 0;
-position: relative;
-}
-.intake-header {
-padding: 20px 24px 16px;
-border-bottom: 1px solid rgba(255,255,255,0.06);
-display: flex;
-align-items: center;
-gap: 12px;
-}
-.intake-logo-small {
-font-family: ‘Cormorant Garamond’, serif;
-font-size: 20px;
-letter-spacing: 4px;
-color: var(–gold);
-}
-.intake-scenario-badge {
-font-size: 9px;
-letter-spacing: 1.5px;
-color: var(–gray);
-text-transform: uppercase;
-margin-left: auto;
-}
-.data-strength-bar {
-padding: 10px 24px;
-background: var(–near-black);
-display: flex;
-align-items: center;
-gap: 10px;
-border-bottom: 1px solid rgba(255,255,255,0.04);
-}
-.strength-label { font-size: 9px; letter-spacing: 1.5px; color: var(–gray); text-transform: uppercase; }
-.strength-track {
-flex: 1;
-height: 2px;
-background: rgba(255,255,255,0.08);
-border-radius: 1px;
 overflow: hidden;
 }
-.strength-fill {
-height: 100%;
-background: var(–gold);
-border-radius: 1px;
-transition: width 0.8s ease;
-width: 0%;
-}
-.strength-text { font-size: 9px; color: var(–gold); letter-spacing: 1px; min-width: 40px; text-align: right; }
-
-.chat-area {
+.disc-scroll {
 flex: 1;
 overflow-y: auto;
-padding: 24px 20px;
-display: flex;
-flex-direction: column;
-gap: 16px;
-min-height: 0;
-max-height: calc(100vh - 220px);
+padding: 40px 28px 24px;
 }
-.message {
-max-width: 88%;
-animation: fadeUp 0.4s ease forwards;
-}
-.message.cyrano { align-self: flex-start; }
-.message.user { align-self: flex-end; }
-.message-bubble {
-padding: 14px 18px;
-border-radius: 2px;
-font-size: 13px;
-line-height: 1.7;
-letter-spacing: 0.2px;
-}
-.message.cyrano .message-bubble {
-background: var(–dark);
-border-left: 2px solid var(–gold);
-color: var(–off-white);
+.disc-logo {
 font-family: ‘Cormorant Garamond’, serif;
-font-size: 15px;
-font-weight: 400;
+font-size: 28px;
+letter-spacing: 8px;
+color: var(–gold);
+text-align: center;
+margin-bottom: 32px;
 }
-.message.user .message-bubble {
-background: rgba(201,168,76,0.12);
-border: 1px solid rgba(201,168,76,0.2);
-color: var(–white);
-font-size: 13px;
-}
-.message-sender {
-font-size: 8px;
-letter-spacing: 2px;
+.disc-title {
+font-size: 10px;
+letter-spacing: 3px;
+color: var(–gold);
 text-transform: uppercase;
-margin-bottom: 6px;
-color: var(–gray);
+margin-bottom: 16px;
 }
-.message.cyrano .message-sender { color: var(–gold); }
-
-.typing-indicator {
-display: none;
-align-self: flex-start;
-padding: 14px 18px;
-background: var(–dark);
-border-left: 2px solid var(–gold);
-border-radius: 2px;
+.disc-text {
+font-size: 12px;
+color: var(–light-gray);
+line-height: 1.8;
+margin-bottom: 20px;
 }
-.typing-indicator.visible { display: flex; gap: 5px; align-items: center; }
-.typing-dot {
-width: 5px; height: 5px;
-background: var(–gold);
-border-radius: 50%;
-animation: typingBounce 1.2s infinite;
-}
-.typing-dot:nth-child(2) { animation-delay: 0.2s; }
-.typing-dot:nth-child(3) { animation-delay: 0.4s; }
-
-.input-area {
-padding: 16px 20px;
-border-top: 1px solid rgba(255,255,255,0.06);
-background: var(–near-black);
+.disc-check {
 display: flex;
-gap: 12px;
-align-items: flex-end;
+align-items: flex-start;
+gap: 14px;
+padding: 16px;
+background: var(–dark);
+border: 1px solid var(–gold-border);
+border-radius: var(–radius);
+margin-bottom: 8px;
+cursor: pointer;
 }
-.chat-input {
-flex: 1;
+.disc-check input[type=checkbox] {
+width: 18px; height: 18px;
+accent-color: var(–gold);
+flex-shrink: 0;
+margin-top: 1px;
+cursor: pointer;
+}
+.disc-check-text { font-size: 11px; color: var(–off-white); line-height: 1.6; }
+.disc-footer {
+padding: 16px 28px 32px;
+border-top: 1px solid var(–subtle);
+background: var(–near-black);
+}
+
+/* ══════════════════════════════════════
+SCREEN 3: API KEY
+══════════════════════════════════════ */
+#s-api {
+align-items: center;
+justify-content: center;
+padding: 40px 28px;
+}
+.api-inner { max-width: 400px; width: 100%; }
+.api-logo {
+font-family: ‘Cormorant Garamond’, serif;
+font-size: 32px;
+letter-spacing: 8px;
+color: var(–gold);
+text-align: center;
+margin-bottom: 32px;
+}
+.field-label {
+font-size: 9px;
+letter-spacing: 2.5px;
+color: var(–gold);
+text-transform: uppercase;
+margin-bottom: 8px;
+display: block;
+}
+.field-input {
+width: 100%;
 background: var(–dark);
 border: 1px solid rgba(255,255,255,0.1);
 color: var(–white);
 font-family: ‘Montserrat’, sans-serif;
-font-size: 13px;
+font-size: 12px;
 font-weight: 300;
-padding: 12px 16px;
-border-radius: 2px;
+padding: 14px 16px;
+border-radius: var(–radius);
 outline: none;
-resize: none;
-min-height: 46px;
-max-height: 120px;
-line-height: 1.5;
 transition: border-color 0.3s;
+margin-bottom: 8px;
 }
-.chat-input:focus { border-color: rgba(201,168,76,0.4); }
-.chat-input::placeholder { color: rgba(255,255,255,0.25); }
-
-/* ── ANALYSIS SCREEN ── */
-#screen-analysis {
-align-items: center;
-justify-content: center;
-text-align: center;
-padding: 40px 24px;
-}
-.analysis-logo {
-font-family: ‘Cormorant Garamond’, serif;
-font-size: 40px;
-letter-spacing: 8px;
-color: var(–gold);
-margin-bottom: 48px;
-animation: pulse 2s infinite;
-}
-.analysis-keywords {
-display: flex;
-flex-direction: column;
-gap: 16px;
-margin-bottom: 48px;
-}
-.analysis-kw {
+.field-input:focus { border-color: var(–gold-border); }
+.field-note {
 font-size: 10px;
-letter-spacing: 3px;
-text-transform: uppercase;
 color: var(–gray);
-transition: color 0.5s;
-}
-.analysis-kw.active { color: var(–gold); }
-.analysis-line {
-width: 1px;
-height: 60px;
-background: linear-gradient(to bottom, var(–gold), transparent);
-margin: 0 auto;
-animation: lineGrow 2s infinite;
+line-height: 1.7;
+margin-bottom: 28px;
 }
 
-/* ── REPORT SCREEN ── */
-#screen-report {
-padding: 0;
-overflow-y: auto;
+/* ══════════════════════════════════════
+SCREEN 4: ONBOARDING (Subject A)
+══════════════════════════════════════ */
+#s-onboard {
+overflow: hidden;
 }
-.report-header {
-padding: 32px 24px 24px;
-background: var(–near-black);
-border-bottom: 1px solid rgba(201,168,76,0.2);
+.onboard-header {
+padding: 28px 28px 20px;
+border-bottom: 1px solid var(–subtle);
 text-align: center;
 }
-.report-logo {
+.onboard-logo {
 font-family: ‘Cormorant Garamond’, serif;
-font-size: 24px;
+font-size: 22px;
 letter-spacing: 6px;
 color: var(–gold);
 margin-bottom: 4px;
 }
-.report-scenario {
+.onboard-sub {
 font-size: 9px;
 letter-spacing: 2px;
 color: var(–gray);
 text-transform: uppercase;
 }
-.report-body { padding: 28px 24px; max-width: 600px; margin: 0 auto; }
-
-.report-section {
-margin-bottom: 32px;
-animation: fadeUp 0.6s ease forwards;
-}
-.report-section-label {
-font-size: 8px;
-letter-spacing: 3px;
-color: var(–gold);
-text-transform: uppercase;
-margin-bottom: 12px;
-display: flex;
-align-items: center;
-gap: 10px;
-}
-.report-section-label::after {
-content: ‘’;
+.onboard-scroll {
 flex: 1;
-height: 1px;
-background: rgba(201,168,76,0.2);
+overflow-y: auto;
+padding: 24px 28px;
 }
-.archetype-card {
-background: var(–dark);
-border: 1px solid rgba(201,168,76,0.25);
-padding: 20px;
-border-radius: 2px;
-margin-bottom: 12px;
-}
-.archetype-name {
+.onboard-intro {
 font-family: ‘Cormorant Garamond’, serif;
-font-size: 26px;
-font-weight: 300;
-letter-spacing: 2px;
-color: var(–white);
-margin-bottom: 4px;
-}
-.archetype-secondary {
-font-size: 10px;
-color: var(–gold);
-letter-spacing: 2px;
-text-transform: uppercase;
-margin-bottom: 12px;
-}
-.archetype-desc {
-font-family: ‘Cormorant Garamond’, serif;
-font-size: 15px;
+font-size: 16px;
 color: var(–off-white);
 line-height: 1.7;
 font-style: italic;
+margin-bottom: 28px;
+text-align: center;
 }
-.score-display {
+.form-row { margin-bottom: 18px; }
+.form-row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 18px; }
+.field-select {
+width: 100%;
+background: var(–dark);
+border: 1px solid rgba(255,255,255,0.1);
+color: var(–white);
+font-family: ‘Montserrat’, sans-serif;
+font-size: 12px;
+font-weight: 300;
+padding: 14px 16px;
+border-radius: var(–radius);
+outline: none;
+appearance: none;
+-webkit-appearance: none;
+cursor: pointer;
+transition: border-color 0.3s;
+}
+.field-select:focus { border-color: var(–gold-border); }
+.field-select option { background: var(–dark); color: var(–white); }
+.onboard-footer {
+padding: 16px 28px 32px;
+border-top: 1px solid var(–subtle);
+background: var(–near-black);
+}
+
+/* ══════════════════════════════════════
+SCREEN 5: SCENARIO
+══════════════════════════════════════ */
+#s-scenario { overflow: hidden; }
+.scenario-header {
+padding: 28px 28px 20px;
+text-align: center;
+border-bottom: 1px solid var(–subtle);
+}
+.scenario-title {
+font-family: ‘Cormorant Garamond’, serif;
+font-size: 28px;
+letter-spacing: 3px;
+margin-bottom: 6px;
+}
+.scenario-sub {
+font-size: 9px;
+letter-spacing: 2.5px;
+color: var(–gold);
+text-transform: uppercase;
+}
+.scenario-scroll {
+flex: 1;
+overflow-y: auto;
+padding: 20px 24px;
+}
+.scenario-grid {
+display: grid;
+grid-template-columns: 1fr 1fr;
+gap: 10px;
+margin-bottom: 8px;
+}
+.scenario-card {
+background: var(–dark);
+border: 1px solid rgba(255,255,255,0.07);
+padding: 18px 14px;
+border-radius: var(–radius);
+cursor: pointer;
+transition: all 0.25s;
+text-align: center;
+}
+.scenario-card:active, .scenario-card.sel {
+border-color: var(–gold);
+background: var(–gold-dim);
+}
+.sc-icon { font-size: 18px; margin-bottom: 8px; }
+.sc-name {
+font-size: 9px;
+letter-spacing: 1.5px;
+text-transform: uppercase;
+color: var(–light-gray);
+font-weight: 500;
+line-height: 1.4;
+}
+.scenario-card.sel .sc-name { color: var(–gold); }
+.scenario-footer {
+padding: 14px 24px 28px;
+border-top: 1px solid var(–subtle);
+background: var(–near-black);
+}
+
+/* ══════════════════════════════════════
+SCREEN 6: INTAKE
+══════════════════════════════════════ */
+#s-intake { overflow: hidden; position: relative; }
+.intake-top {
+padding: 14px 20px 10px;
+border-bottom: 1px solid var(–subtle);
 display: flex;
 align-items: center;
-gap: 16px;
-padding: 20px;
-background: var(–dark);
-border: 1px solid rgba(255,255,255,0.06);
-border-radius: 2px;
-margin-bottom: 12px;
+gap: 10px;
+flex-shrink: 0;
 }
-.score-number {
+.intake-cyrano {
 font-family: ‘Cormorant Garamond’, serif;
-font-size: 48px;
+font-size: 18px;
+letter-spacing: 4px;
 color: var(–gold);
-font-weight: 300;
-line-height: 1;
 }
-.score-label { font-size: 9px; letter-spacing: 2px; color: var(–gray); text-transform: uppercase; }
-.score-stars { font-size: 16px; margin-top: 4px; }
-.outlook-row {
+.intake-badge {
+font-size: 8px;
+letter-spacing: 1.5px;
+color: var(–gray);
+text-transform: uppercase;
+margin-left: auto;
+background: var(–dark);
+padding: 4px 10px;
+border-radius: 20px;
+border: 1px solid var(–subtle);
+}
+.strength-bar {
+padding: 8px 20px;
+background: var(–near-black);
 display: flex;
-gap: 12px;
-margin-bottom: 12px;
+align-items: center;
+gap: 10px;
+flex-shrink: 0;
+border-bottom: 1px solid var(–subtle);
 }
-.outlook-pill {
+.str-label { font-size: 8px; letter-spacing: 2px; color: var(–gray); text-transform: uppercase; white-space:nowrap; }
+.str-track { flex:1; height:2px; background:rgba(255,255,255,0.07); border-radius:1px; overflow:hidden; }
+.str-fill { height:100%; background:var(–gold); border-radius:1px; transition:width 1s ease; width:0%; }
+.str-val { font-size:9px; color:var(–gold); letter-spacing:1px; min-width:42px; text-align:right; font-weight:500; }
+
+.chat-wrap {
 flex: 1;
+overflow-y: auto;
+padding: 16px 18px 8px;
+display: flex;
+flex-direction: column;
+gap: 14px;
+scroll-behavior: smooth;
+}
+.msg { max-width:90%; animation: fadeUp 0.35s ease forwards; }
+.msg.bot { align-self:flex-start; }
+.msg.usr { align-self:flex-end; }
+.msg-who {
+font-size: 7px;
+letter-spacing: 2.5px;
+text-transform: uppercase;
+margin-bottom: 5px;
+color: var(–gray);
+}
+.msg.bot .msg-who { color: var(–gold); }
+.msg-bubble {
+padding: 13px 16px;
+border-radius: var(–radius);
+line-height: 1.7;
+}
+.msg.bot .msg-bubble {
+background: var(–dark);
+border-left: 2px solid var(–gold);
+font-family: ‘Cormorant Garamond’, serif;
+font-size: 15px;
+color: var(–off-white);
+}
+.msg.usr .msg-bubble {
+background: rgba(201,168,76,0.1);
+border: 1px solid var(–gold-border);
+font-size: 13px;
+color: var(–white);
+}
+.typing {
+align-self: flex-start;
 padding: 12px 16px;
 background: var(–dark);
-border: 1px solid rgba(255,255,255,0.06);
-border-radius: 2px;
-text-align: center;
+border-left: 2px solid var(–gold);
+border-radius: var(–radius);
+display: none;
+gap: 5px;
+align-items: center;
 }
-.outlook-pill-label { font-size: 8px; letter-spacing: 2px; color: var(–gray); text-transform: uppercase; margin-bottom: 6px; }
-.outlook-pill-value { font-size: 13px; font-weight: 500; color: var(–white); }
-.decision-card {
-padding: 20px;
-border-radius: 2px;
+.typing.on { display:flex; }
+.dot { width:5px; height:5px; background:var(–gold); border-radius:50%; animation:bounce 1.2s infinite; }
+.dot:nth-child(2){animation-delay:.2s}
+.dot:nth-child(3){animation-delay:.4s}
+
+/* Add info banner */
+.add-info-btn {
+margin: 0 18px 8px;
+padding: 12px 16px;
+background: rgba(201,168,76,0.08);
+border: 1px solid var(–gold-border);
+border-radius: var(–radius);
+color: var(–gold);
+font-family: ‘Montserrat’, sans-serif;
+font-size: 10px;
+font-weight: 500;
+letter-spacing: 1.5px;
+text-transform: uppercase;
+cursor: pointer;
 text-align: center;
-margin-bottom: 12px;
+display: none;
+transition: all 0.25s;
+flex-shrink: 0;
 }
-.decision-card.proceed { background: rgba(201,168,76,0.1); border: 1px solid rgba(201,168,76,0.4); }
-.decision-card.caution { background: rgba(255,165,0,0.08); border: 1px solid rgba(255,165,0,0.3); }
-.decision-card.stop { background: rgba(192,57,43,0.08); border: 1px solid rgba(192,57,43,0.3); }
-.decision-icon { font-size: 28px; margin-bottom: 8px; }
-.decision-verdict {
+.add-info-btn.on { display:block; }
+.add-info-btn:active { background: var(–gold-dim); }
+
+.gen-btn {
+margin: 0 18px 8px;
+padding: 15px 16px;
+background: var(–gold);
+border: none;
+border-radius: var(–radius);
+color: var(–black);
+font-family: ‘Montserrat’, sans-serif;
+font-size: 10px;
+font-weight: 700;
+letter-spacing: 3px;
+text-transform: uppercase;
+cursor: pointer;
+display: none;
+transition: all 0.25s;
+flex-shrink: 0;
+}
+.gen-btn.on { display:block; }
+.gen-btn:active { background: var(–gold-light); }
+
+.chat-input-row {
+padding: 10px 18px 20px;
+border-top: 1px solid var(–subtle);
+background: var(–near-black);
+display: flex;
+gap: 10px;
+align-items: flex-end;
+flex-shrink: 0;
+}
+.chat-ta {
+flex:1;
+background: var(–dark);
+border: 1px solid rgba(255,255,255,0.1);
+color: var(–white);
+font-family: ‘Montserrat’, sans-serif;
+font-size: 13px;
+font-weight: 300;
+padding: 12px 14px;
+border-radius: var(–radius);
+outline: none;
+resize: none;
+min-height: 46px;
+max-height: 110px;
+line-height: 1.5;
+transition: border-color 0.25s;
+}
+.chat-ta:focus { border-color: var(–gold-border); }
+.chat-ta::placeholder { color:rgba(255,255,255,0.2); }
+.send-btn {
+width:46px; height:46px;
+background: var(–gold);
+border:none; border-radius: var(–radius);
+cursor:pointer;
+display:flex; align-items:center; justify-content:center;
+flex-shrink:0;
+transition: background 0.25s;
+}
+.send-btn:active { background: var(–gold-light); }
+.send-btn:disabled { background:rgba(201,168,76,0.25); cursor:not-allowed; }
+.send-btn svg { width:18px; height:18px; fill:var(–black); }
+
+/* ══════════════════════════════════════
+SCREEN 7: ADD INFO MODAL
+══════════════════════════════════════ */
+#s-addinfo {
+position: fixed;
+inset: 0;
+background: rgba(0,0,0,0.85);
+z-index: 100;
+display: none;
+align-items: flex-end;
+justify-content: center;
+}
+#s-addinfo.open { display:flex; }
+.addinfo-sheet {
+background: var(–dark);
+border-top: 1px solid var(–gold-border);
+border-radius: 12px 12px 0 0;
+width: 100%;
+max-width: 600px;
+padding: 24px 24px 40px;
+animation: slideUp 0.3s ease forwards;
+}
+.addinfo-title {
 font-family: ‘Cormorant Garamond’, serif;
 font-size: 22px;
 letter-spacing: 2px;
 color: var(–white);
-margin-bottom: 8px;
+margin-bottom: 6px;
 }
-.decision-desc { font-size: 12px; color: var(–light-gray); line-height: 1.6; }
-.report-text {
-font-family: ‘Cormorant Garamond’, serif;
-font-size: 15px;
-color: var(–off-white);
-line-height: 1.8;
-}
-.strength-badge {
-display: inline-flex;
-align-items: center;
-gap: 6px;
-padding: 6px 12px;
-border-radius: 20px;
+.addinfo-sub {
 font-size: 10px;
-letter-spacing: 1.5px;
-text-transform: uppercase;
-font-weight: 500;
-margin-bottom: 20px;
-}
-.strength-badge.yellow { background: rgba(255,200,0,0.1); color: #FFD700; border: 1px solid rgba(255,200,0,0.3); }
-.strength-badge.green { background: rgba(0,200,100,0.1); color: #00C864; border: 1px solid rgba(0,200,100,0.3); }
-.strength-badge.orange { background: rgba(255,120,0,0.1); color: #FF7800; border: 1px solid rgba(255,120,0,0.3); }
-.niq-item {
-padding: 14px 16px;
-background: var(–dark);
-border-left: 2px solid rgba(201,168,76,0.3);
-margin-bottom: 8px;
-border-radius: 0 2px 2px 0;
-}
-.niq-priority {
-font-size: 8px;
-letter-spacing: 2px;
-text-transform: uppercase;
-color: var(–gold);
-margin-bottom: 4px;
-}
-.niq-text { font-size: 13px; color: var(–off-white); line-height: 1.6; }
-
-/* ── BUTTONS ── */
-.btn-primary {
-width: 100%;
-padding: 18px;
-background: transparent;
-border: 1px solid var(–gold);
-color: var(–gold);
-font-family: ‘Montserrat’, sans-serif;
-font-size: 10px;
-font-weight: 500;
-letter-spacing: 3px;
-text-transform: uppercase;
-cursor: pointer;
-border-radius: 2px;
-transition: all 0.3s;
-margin-bottom: 12px;
-}
-.btn-primary:hover, .btn-primary:active {
-background: var(–gold);
-color: var(–black);
-}
-.btn-ghost {
-width: 100%;
-padding: 14px;
-background: transparent;
-border: 1px solid rgba(255,255,255,0.1);
 color: var(–gray);
+margin-bottom: 20px;
+line-height: 1.6;
+}
+.addinfo-ta {
+width: 100%;
+background: var(–dark2);
+border: 1px solid rgba(255,255,255,0.1);
+color: var(–white);
 font-family: ‘Montserrat’, sans-serif;
-font-size: 10px;
-font-weight: 400;
-letter-spacing: 2px;
-text-transform: uppercase;
-cursor: pointer;
-border-radius: 2px;
-transition: all 0.3s;
+font-size: 13px;
+font-weight: 300;
+padding: 14px;
+border-radius: var(–radius);
+outline: none;
+resize: none;
+height: 100px;
+line-height: 1.6;
+margin-bottom: 14px;
+transition: border-color 0.25s;
 }
-.btn-ghost:hover { border-color: rgba(255,255,255,0.3); color: var(–white); }
-.btn-send {
-width: 46px;
-height: 46px;
-background: var(–gold);
-border: none;
-border-radius: 2px;
-cursor: pointer;
-display: flex;
-align-items: center;
-justify-content: center;
-flex-shrink: 0;
-transition: all 0.3s;
-}
-.btn-send:hover { background: var(–gold-light); }
-.btn-send:disabled { background: rgba(201,168,76,0.3); cursor: not-allowed; }
-.btn-send svg { width: 18px; height: 18px; fill: var(–black); }
+.addinfo-ta:focus { border-color: var(–gold-border); }
+.addinfo-ta::placeholder { color:rgba(255,255,255,0.2); }
+.addinfo-row { display:flex; gap:10px; }
 
-.btn-analyze {
-margin: 16px 20px 20px;
-padding: 16px;
-background: var(–gold);
-border: none;
-color: var(–black);
-font-family: ‘Montserrat’, sans-serif;
-font-size: 10px;
-font-weight: 600;
-letter-spacing: 3px;
-text-transform: uppercase;
-cursor: pointer;
-border-radius: 2px;
-width: calc(100% - 40px);
-transition: all 0.3s;
-display: none;
+/* ══════════════════════════════════════
+SCREEN 8: ANALYSIS
+══════════════════════════════════════ */
+#s-analysis {
+align-items:center;
+justify-content:center;
+text-align:center;
+padding: 40px 28px;
 }
-.btn-analyze.visible { display: block; }
-.btn-analyze:hover { background: var(–gold-light); }
+.analysis-mark {
+font-family:‘Cormorant Garamond’, serif;
+font-size:44px;
+letter-spacing:10px;
+color:var(–gold);
+margin-bottom:48px;
+animation:pulse 2.5s infinite;
+}
+.analysis-items { display:flex; flex-direction:column; gap:14px; margin-bottom:40px; }
+.a-kw {
+font-size:9px;
+letter-spacing:3px;
+text-transform:uppercase;
+color: rgba(255,255,255,0.2);
+transition: color 0.6s;
+}
+.a-kw.lit { color:var(–gold); }
+.a-line {
+width:1px; height:50px;
+background: linear-gradient(to bottom, var(–gold), transparent);
+margin:0 auto;
+animation: lineAnim 2s infinite;
+}
 
-/* ── ANIMATIONS ── */
+/* ══════════════════════════════════════
+SCREEN 9: REPORT
+══════════════════════════════════════ */
+#s-report { overflow-y:auto; }
+.report-top {
+padding: 28px 24px 20px;
+background: var(–near-black);
+border-bottom: 1px solid var(–gold-border);
+text-align:center;
+flex-shrink:0;
+}
+.report-mark {
+font-family:‘Cormorant Garamond’, serif;
+font-size:22px;
+letter-spacing:6px;
+color:var(–gold);
+margin-bottom:3px;
+}
+.report-scenario { font-size:8px; letter-spacing:2px; color:var(–gray); text-transform:uppercase; }
+.report-body { padding:24px 22px; max-width:580px; margin:0 auto; }
+
+.r-section { margin-bottom:28px; animation:fadeUp 0.5s ease forwards; }
+.r-label {
+font-size:7px;
+letter-spacing:3px;
+color:var(–gold);
+text-transform:uppercase;
+margin-bottom:10px;
+display:flex;
+align-items:center;
+gap:10px;
+}
+.r-label::after { content:’’; flex:1; height:1px; background:rgba(201,168,76,0.18); }
+
+.arch-card {
+background:var(–dark);
+border:1px solid var(–gold-border);
+padding:18px;
+border-radius:var(–radius);
+margin-bottom:10px;
+}
+.arch-name {
+font-family:‘Cormorant Garamond’, serif;
+font-size:28px;
+font-weight:300;
+letter-spacing:2px;
+color:var(–white);
+margin-bottom:3px;
+}
+.arch-sec { font-size:9px; color:var(–gold); letter-spacing:2px; text-transform:uppercase; margin-bottom:10px; }
+.arch-desc { font-family:‘Cormorant Garamond’, serif; font-size:15px; color:var(–off-white); line-height:1.75; font-style:italic; }
+
+.score-row {
+display:flex; align-items:center; gap:14px;
+padding:16px 18px;
+background:var(–dark);
+border:1px solid rgba(255,255,255,0.06);
+border-radius:var(–radius);
+margin-bottom:10px;
+}
+.score-num { font-family:‘Cormorant Garamond’, serif; font-size:44px; color:var(–gold); font-weight:300; line-height:1; }
+.score-info {}
+.score-lbl { font-size:8px; letter-spacing:2px; color:var(–gray); text-transform:uppercase; }
+.score-stars { font-size:15px; margin:4px 0; }
+.score-txt { font-size:11px; color:var(–light-gray); line-height:1.6; }
+
+.outlook-row { display:flex; gap:10px; margin-bottom:10px; }
+.outlook-pill {
+flex:1; padding:12px 14px;
+background:var(–dark);
+border:1px solid rgba(255,255,255,0.06);
+border-radius:var(–radius);
+text-align:center;
+}
+.op-lbl { font-size:7px; letter-spacing:2px; color:var(–gray); text-transform:uppercase; margin-bottom:5px; }
+.op-val { font-size:13px; font-weight:500; color:var(–white); }
+
+.dec-card {
+padding:18px; border-radius:var(–radius);
+text-align:center; margin-bottom:10px;
+}
+.dec-card.proceed { background:rgba(201,168,76,0.08); border:1px solid rgba(201,168,76,0.35); }
+.dec-card.caution { background:rgba(255,150,0,0.07); border:1px solid rgba(255,150,0,0.3); }
+.dec-card.stop { background:rgba(180,50,40,0.07); border:1px solid rgba(180,50,40,0.3); }
+.dec-icon { font-size:26px; margin-bottom:7px; }
+.dec-verdict { font-family:‘Cormorant Garamond’, serif; font-size:22px; letter-spacing:2px; color:var(–white); margin-bottom:6px; }
+.dec-desc { font-size:12px; color:var(–light-gray); line-height:1.65; }
+
+.r-text { font-family:‘Cormorant Garamond’, serif; font-size:15px; color:var(–off-white); line-height:1.8; }
+.r-card { background:var(–dark); border:1px solid rgba(255,255,255,0.06); padding:16px 18px; border-radius:var(–radius); margin-bottom:10px; }
+
+.badge {
+display:inline-flex; align-items:center; gap:6px;
+padding:5px 12px; border-radius:20px;
+font-size:9px; letter-spacing:1.5px; text-transform:uppercase; font-weight:500;
+margin-bottom:18px;
+}
+.badge.yellow { background:rgba(255,200,0,0.09); color:#FFD700; border:1px solid rgba(255,200,0,0.25); }
+.badge.green { background:rgba(0,190,90,0.09); color:#00BE5A; border:1px solid rgba(0,190,90,0.25); }
+.badge.orange { background:rgba(255,120,0,0.09); color:#FF7800; border:1px solid rgba(255,120,0,0.25); }
+.badge.red { background:rgba(200,50,40,0.09); color:#FF4444; border:1px solid rgba(200,50,40,0.25); }
+
+.niq-item {
+padding:13px 15px;
+background:var(–dark);
+border-left:2px solid rgba(201,168,76,0.3);
+margin-bottom:8px;
+border-radius:0 var(–radius) var(–radius) 0;
+}
+.niq-pri { font-size:7px; letter-spacing:2px; text-transform:uppercase; color:var(–gold); margin-bottom:4px; font-weight:600; }
+.niq-txt { font-size:12px; color:var(–off-white); line-height:1.65; }
+
+.report-actions { padding:8px 0 40px; display:flex; flex-direction:column; gap:10px; }
+
+/* ══════════════════════════════════════
+BUTTONS
+══════════════════════════════════════ */
+.btn-gold {
+width:100%;
+padding:16px;
+background: var(–gold);
+border:none;
+color:var(–black);
+font-family:‘Montserrat’, sans-serif;
+font-size:10px;
+font-weight:700;
+letter-spacing:3px;
+text-transform:uppercase;
+cursor:pointer;
+border-radius:var(–radius);
+transition:all 0.25s;
+}
+.btn-gold:active { background:var(–gold-light); }
+.btn-gold:disabled { background:rgba(201,168,76,0.25); cursor:not-allowed; }
+.btn-outline {
+width:100%;
+padding:14px;
+background:transparent;
+border:1px solid rgba(255,255,255,0.12);
+color:var(–gray);
+font-family:‘Montserrat’, sans-serif;
+font-size:10px;
+font-weight:400;
+letter-spacing:2px;
+text-transform:uppercase;
+cursor:pointer;
+border-radius:var(–radius);
+transition:all 0.25s;
+}
+.btn-outline:active { border-color:rgba(255,255,255,0.3); color:var(–white); }
+
+/* ══════════════════════════════════════
+ANIMATIONS
+══════════════════════════════════════ */
 @keyframes fadeUp {
-from { opacity: 0; transform: translateY(16px); }
-to { opacity: 1; transform: translateY(0); }
+from { opacity:0; transform:translateY(14px); }
+to { opacity:1; transform:translateY(0); }
 }
-@keyframes expandLine {
-from { transform: scaleX(0); }
-to { transform: scaleX(1); }
+@keyframes expandW {
+from { transform:scaleX(0); }
+to { transform:scaleX(1); }
 }
 @keyframes pulse {
-0%, 100% { opacity: 1; }
-50% { opacity: 0.5; }
+0%,100% { opacity:1; } 50% { opacity:0.4; }
 }
-@keyframes typingBounce {
-0%, 60%, 100% { transform: translateY(0); }
-30% { transform: translateY(-6px); }
+@keyframes bounce {
+0%,60%,100% { transform:translateY(0); }
+30% { transform:translateY(-6px); }
 }
-@keyframes lineGrow {
-0%, 100% { opacity: 0.3; transform: scaleY(0.5); }
-50% { opacity: 1; transform: scaleY(1); }
+@keyframes lineAnim {
+0%,100% { opacity:0.2; transform:scaleY(0.4); }
+50% { opacity:1; transform:scaleY(1); }
+}
+@keyframes slideUp {
+from { transform:translateY(100%); }
+to { transform:translateY(0); }
 }
 
-/* Scrollbar */
-::-webkit-scrollbar { width: 3px; }
-::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: rgba(201,168,76,0.3); border-radius: 2px; }
+::-webkit-scrollbar { width:2px; }
+::-webkit-scrollbar-thumb { background:rgba(201,168,76,0.2); }
 </style>
 
 </head>
 <body>
 
-<!-- ── SCREEN: API KEY ── -->
+<!-- ══ S1: LANGUAGE ══ -->
 
-<div id="screen-apikey" class="screen active">
-  <div class="apikey-inner">
-    <div class="logo-mark">CYRANO</div>
-    <div class="logo-sub">Relational Intelligence</div>
-    <div class="apikey-label">Anthropic API Key</div>
-    <input type="password" class="apikey-input" id="apikey-input" placeholder="sk-ant-api03-..." />
-    <div class="apikey-note">Your key is stored only in this browser session and never transmitted to any server other than Anthropic's API directly.</div>
-    <button class="btn-primary" onclick="saveApiKey()">Enter CYRANO</button>
+<div id="s-lang" class="screen active">
+  <div class="lang-inner">
+    <div class="brand-title">CYRANO</div>
+    <div class="brand-rule"></div>
+    <div class="brand-sub">Relational Intelligence</div>
+    <div class="lang-label">Choose your language</div>
+    <div class="lang-grid">
+      <button class="lang-btn" onclick="pickLang(this,'en')">English</button>
+      <button class="lang-btn" onclick="pickLang(this,'it')">Italiano</button>
+      <button class="lang-btn" onclick="pickLang(this,'fr')">Français</button>
+      <button class="lang-btn" onclick="pickLang(this,'es')">Español</button>
+      <button class="lang-btn" onclick="pickLang(this,'ar')">العربية</button>
+      <button class="lang-btn" onclick="pickLang(this,'de')">Deutsch</button>
+    </div>
   </div>
 </div>
 
-<!-- ── SCREEN: LANDING ── -->
+<!-- ══ S2: DISCLAIMER ══ -->
 
-<div id="screen-landing" class="screen">
-  <div class="landing-inner">
-    <div class="landing-logo">CYRANO</div>
-    <div class="landing-tagline">Personal Relationship Intelligence</div>
-    <div class="gold-line"></div>
-    <div class="landing-promise">Understand them.<br>Understand yourself.<br>Evaluate compatibility.<br>Act with precision.</div>
-    <div class="landing-desc">CYRANO analyses people, reveals relational dynamics, and guides you toward better decisions and outcomes.</div>
-    <button class="btn-primary" onclick="showScreen('screen-scenario')">Begin Session</button>
-    <button class="btn-ghost" onclick="showScreen('screen-apikey')">Change API Key</button>
+<div id="s-disc" class="screen">
+  <div class="disc-scroll">
+    <div class="disc-logo">CYRANO</div>
+    <div class="disc-title" id="disc-t1">Legal Disclaimer</div>
+    <div class="disc-text" id="disc-t2">CYRANO is a relational intelligence system designed to provide psychological interpretation and strategic guidance based on information supplied by the user. It is not a licensed psychological or therapeutic service.</div>
+    <div class="disc-text" id="disc-t3">All profile analyses, compatibility assessments, and recommendations are interpretations based on user-supplied data and should not be treated as clinical diagnoses, legal advice, or absolute factual statements about any person.</div>
+    <div class="disc-text" id="disc-t4">Information about third parties (Subject B) is processed solely on the basis of observations reported by the user. CYRANO does not collect, store, or share personal data beyond the current session.</div>
+    <div class="disc-check" onclick="toggle('chk1')">
+      <input type="checkbox" id="chk1" onchange="checkDisc()">
+      <div class="disc-check-text" id="disc-c1">I understand that CYRANO provides interpretive guidance, not clinical or legal advice.</div>
+    </div>
+    <div class="disc-check" onclick="toggle('chk2')">
+      <input type="checkbox" id="chk2" onchange="checkDisc()">
+      <div class="disc-check-text" id="disc-c2">I confirm that I will use CYRANO responsibly and that all information I provide is based on my own observations.</div>
+    </div>
+  </div>
+  <div class="disc-footer">
+    <button class="btn-gold" id="btn-disc" onclick="go('s-api')" disabled style="opacity:0.35">Continue</button>
   </div>
 </div>
 
-<!-- ── SCREEN: SCENARIO ── -->
+<!-- ══ S3: API KEY ══ -->
 
-<div id="screen-scenario" class="screen">
-  <div class="screen-header">
-    <div class="screen-title">Select Scenario</div>
-    <div class="screen-subtitle">Choose the relational context</div>
-  </div>
-  <div class="scenarios-grid">
-    <div class="scenario-card" onclick="selectScenario(this, 'First Contact')">
-      <div class="scenario-icon">✦</div>
-      <div class="scenario-name">First Contact</div>
+<div id="s-api" class="screen">
+  <div style="flex:1;display:flex;align-items:center;justify-content:center;padding:40px 28px;">
+    <div class="api-inner">
+      <div class="api-logo">CYRANO</div>
+      <label class="field-label" id="api-lbl">Anthropic API Key</label>
+      <input type="password" class="field-input" id="api-input" placeholder="sk-ant-api03-...">
+      <div class="field-note" id="api-note">Your key is stored only in this session and sent exclusively to Anthropic's API.</div>
+      <button class="btn-gold" onclick="saveKey()" id="btn-api">Continue</button>
     </div>
-    <div class="scenario-card" onclick="selectScenario(this, 'Flirting')">
-      <div class="scenario-icon">◈</div>
-      <div class="scenario-name">Flirting</div>
-    </div>
-    <div class="scenario-card" onclick="selectScenario(this, 'Escalation')">
-      <div class="scenario-icon">▲</div>
-      <div class="scenario-name">Escalation</div>
-    </div>
-    <div class="scenario-card" onclick="selectScenario(this, 'Reconnection')">
-      <div class="scenario-icon">◎</div>
-      <div class="scenario-name">Reconnection</div>
-    </div>
-    <div class="scenario-card" onclick="selectScenario(this, 'Break-up Recovery')">
-      <div class="scenario-icon">◇</div>
-      <div class="scenario-name">Break-up Recovery</div>
-    </div>
-    <div class="scenario-card" onclick="selectScenario(this, 'Exit Strategy')">
-      <div class="scenario-icon">→</div>
-      <div class="scenario-name">Exit Strategy</div>
-    </div>
-  </div>
-  <div style="max-width:480px; margin:0 auto; padding: 0 24px;">
-    <button class="btn-primary" id="btn-start-session" onclick="startSession()" style="opacity:0.4; pointer-events:none;">Continue</button>
-    <button class="btn-ghost" onclick="showScreen('screen-landing')">Back</button>
   </div>
 </div>
 
-<!-- ── SCREEN: INTAKE ── -->
+<!-- ══ S4: ONBOARDING ══ -->
 
-<div id="screen-intake" class="screen">
-  <div class="intake-header">
-    <div class="intake-logo-small">CYRANO</div>
-    <div class="intake-scenario-badge" id="intake-scenario-badge">—</div>
+<div id="s-onboard" class="screen">
+  <div class="onboard-header">
+    <div class="onboard-logo">CYRANO</div>
+    <div class="onboard-sub" id="ob-sub">Before we begin — tell me about yourself</div>
   </div>
-  <div class="data-strength-bar">
-    <div class="strength-label">Data Strength</div>
-    <div class="strength-track"><div class="strength-fill" id="strength-fill"></div></div>
-    <div class="strength-text" id="strength-text">—</div>
-  </div>
-  <div class="chat-area" id="chat-area">
-    <div class="typing-indicator" id="typing-indicator">
-      <div class="typing-dot"></div>
-      <div class="typing-dot"></div>
-      <div class="typing-dot"></div>
+  <div class="onboard-scroll">
+    <div class="onboard-intro" id="ob-intro">This information will help me understand you better from the very first exchange.</div>
+    <div class="form-row">
+      <label class="field-label" id="ob-name-lbl">Your first name</label>
+      <input type="text" class="field-input" id="ob-name" placeholder="Name">
+    </div>
+    <div class="form-row-2">
+      <div>
+        <label class="field-label" id="ob-gender-lbl">Gender</label>
+        <select class="field-select" id="ob-gender">
+          <option value="">—</option>
+          <option value="Man">Man</option>
+          <option value="Woman">Woman</option>
+          <option value="Non-binary">Non-binary</option>
+          <option value="Prefer not to say">Prefer not to say</option>
+        </select>
+      </div>
+      <div>
+        <label class="field-label" id="ob-age-lbl">Age</label>
+        <input type="number" class="field-input" id="ob-age" placeholder="Age" min="18" max="99">
+      </div>
+    </div>
+    <div class="form-row">
+      <label class="field-label" id="ob-prof-lbl">Profession</label>
+      <input type="text" class="field-input" id="ob-prof" placeholder="Profession">
+    </div>
+    <div class="form-row">
+      <label class="field-label" id="ob-sign-lbl">Zodiac sign</label>
+      <select class="field-select" id="ob-sign">
+        <option value="">—</option>
+        <option>Aries</option><option>Taurus</option><option>Gemini</option>
+        <option>Cancer</option><option>Leo</option><option>Virgo</option>
+        <option>Libra</option><option>Scorpio</option><option>Sagittarius</option>
+        <option>Capricorn</option><option>Aquarius</option><option>Pisces</option>
+      </select>
     </div>
   </div>
-  <button class="btn-analyze" id="btn-analyze" onclick="runAnalysis()">Generate Profile</button>
-  <div class="input-area">
-    <textarea class="chat-input" id="chat-input" placeholder="Describe the person and the situation..." rows="1"
-      onkeydown="handleKey(event)" oninput="autoResize(this)"></textarea>
-    <button class="btn-send" id="btn-send" onclick="sendMessage()">
+  <div class="onboard-footer">
+    <button class="btn-gold" onclick="saveOnboard()" id="btn-ob">Continue</button>
+  </div>
+</div>
+
+<!-- ══ S5: SCENARIO ══ -->
+
+<div id="s-scenario" class="screen">
+  <div class="scenario-header">
+    <div class="scenario-title" id="sc-title">Select Scenario</div>
+    <div class="scenario-sub" id="sc-sub">Choose the relational context</div>
+  </div>
+  <div class="scenario-scroll">
+    <div class="scenario-grid" id="sc-grid">
+      <div class="scenario-card" onclick="pickScenario(this,'First Contact')">
+        <div class="sc-icon">✦</div><div class="sc-name" id="sc1">First Contact</div>
+      </div>
+      <div class="scenario-card" onclick="pickScenario(this,'Flirting')">
+        <div class="sc-icon">◈</div><div class="sc-name" id="sc2">Flirting</div>
+      </div>
+      <div class="scenario-card" onclick="pickScenario(this,'Escalation')">
+        <div class="sc-icon">▲</div><div class="sc-name" id="sc3">Escalation</div>
+      </div>
+      <div class="scenario-card" onclick="pickScenario(this,'Reconnection')">
+        <div class="sc-icon">◎</div><div class="sc-name" id="sc4">Reconnection</div>
+      </div>
+      <div class="scenario-card" onclick="pickScenario(this,'Break-up Recovery')">
+        <div class="sc-icon">◇</div><div class="sc-name" id="sc5">Break-up Recovery</div>
+      </div>
+      <div class="scenario-card" onclick="pickScenario(this,'Exit Strategy')">
+        <div class="sc-icon">→</div><div class="sc-name" id="sc6">Exit Strategy</div>
+      </div>
+    </div>
+  </div>
+  <div class="scenario-footer">
+    <button class="btn-gold" id="btn-sc" onclick="startChat()" disabled style="opacity:0.35" >Continue</button>
+    <div style="height:10px"></div>
+    <button class="btn-outline" onclick="go('s-onboard')" id="btn-sc-back">← Back</button>
+  </div>
+</div>
+
+<!-- ══ S6: INTAKE ══ -->
+
+<div id="s-intake" class="screen">
+  <div class="intake-top">
+    <div class="intake-cyrano">CYRANO</div>
+    <div class="intake-badge" id="intake-badge">—</div>
+  </div>
+  <div class="strength-bar">
+    <div class="str-label">Data</div>
+    <div class="str-track"><div class="str-fill" id="str-fill"></div></div>
+    <div class="str-val" id="str-val">—</div>
+  </div>
+  <div class="chat-wrap" id="chat-wrap">
+    <div class="typing" id="typing">
+      <div class="dot"></div><div class="dot"></div><div class="dot"></div>
+    </div>
+  </div>
+  <button class="add-info-btn" id="add-info-btn" onclick="openAddInfo()">+ Add information</button>
+  <button class="gen-btn" id="gen-btn" onclick="runAnalysis()">Generate Profile</button>
+  <div class="chat-input-row">
+    <textarea class="chat-ta" id="chat-ta" placeholder="Describe the person and situation..." rows="1"
+      onkeydown="onKey(event)" oninput="autoH(this)"></textarea>
+    <button class="send-btn" id="send-btn" onclick="send()">
       <svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
     </button>
   </div>
 </div>
 
-<!-- ── SCREEN: ANALYSIS ── -->
+<!-- ══ ADD INFO MODAL ══ -->
 
-<div id="screen-analysis" class="screen">
-  <div class="analysis-logo">CYRANO</div>
-  <div class="analysis-keywords">
-    <div class="analysis-kw" id="kw1">Psychological Structure</div>
-    <div class="analysis-kw" id="kw2">Relational Patterns</div>
-    <div class="analysis-kw" id="kw3">Communication Rhythm</div>
-    <div class="analysis-kw" id="kw4">Compatibility Matrix</div>
-    <div class="analysis-kw" id="kw5">Astro Refinement</div>
-    <div class="analysis-kw" id="kw6">Decision Engine</div>
+<div id="s-addinfo">
+  <div class="addinfo-sheet">
+    <div class="addinfo-title" id="ai-title">Add Information</div>
+    <div class="addinfo-sub" id="ai-sub">Add anything you want CYRANO to know before generating the profile. New observations, astrological data, context.</div>
+    <textarea class="addinfo-ta" id="addinfo-ta" placeholder="Add any additional information here..."></textarea>
+    <div class="addinfo-row">
+      <button class="btn-gold" onclick="submitAddInfo()" style="flex:1">Add & Continue</button>
+      <button class="btn-outline" onclick="closeAddInfo()" style="flex:0.6">Cancel</button>
+    </div>
   </div>
-  <div class="analysis-line"></div>
 </div>
 
-<!-- ── SCREEN: REPORT ── -->
+<!-- ══ S8: ANALYSIS ══ -->
 
-<div id="screen-report" class="screen">
-  <div class="report-header">
-    <div class="report-logo">CYRANO</div>
-    <div class="report-scenario" id="report-scenario-label">Profile Report</div>
+<div id="s-analysis" class="screen">
+  <div class="analysis-mark">CYRANO</div>
+  <div class="analysis-items">
+    <div class="a-kw" id="ak1">Psychological Structure</div>
+    <div class="a-kw" id="ak2">Relational Patterns</div>
+    <div class="a-kw" id="ak3">Communication Rhythm</div>
+    <div class="a-kw" id="ak4">Compatibility Matrix</div>
+    <div class="a-kw" id="ak5">Astro Refinement</div>
+    <div class="a-kw" id="ak6">Decision Engine</div>
   </div>
-  <div class="report-body" id="report-body">
-    <!-- dynamically populated -->
+  <div class="a-line"></div>
+</div>
+
+<!-- ══ S9: REPORT ══ -->
+
+<div id="s-report" class="screen">
+  <div class="report-top">
+    <div class="report-mark">CYRANO</div>
+    <div class="report-scenario" id="rpt-scenario">Profile Report</div>
   </div>
+  <div class="report-body" id="rpt-body"></div>
 </div>
 
 <script>
-// ── STATE ──
+// ══ STATE ══
 let apiKey = '';
-let selectedScenario = '';
-let conversationHistory = [];
-let messageCount = 0;
-let dataStrength = 0;
+let lang = 'en';
+let userA = {};
+let scenario = '';
+let history = [];
+let msgCount = 0;
+let readyToGen = false;
 
-const SYSTEM_PROMPT = `You are CYRANO, a sophisticated personal relationship intelligence system. Your role is to conduct a structured intake interview to understand Subject A (the user) and Subject B (the person they are interested in), then generate a comprehensive psychological profile, compatibility analysis, and strategic guidance.
+// ══ TRANSLATIONS ══
+const T = {
+  en: {
+    disc_title:'Legal Disclaimer',
+    disc_t1:'CYRANO is a relational intelligence system providing psychological interpretation and strategic guidance based on information supplied by the user. It is not a licensed psychological or therapeutic service.',
+    disc_t2:'All analyses, compatibility assessments, and recommendations are interpretations based on user-supplied data and must not be treated as clinical diagnoses, legal advice, or absolute facts about any person.',
+    disc_t3:'Information about third parties is processed solely on the basis of observations reported by the user. CYRANO does not store or share personal data beyond the current session.',
+    disc_c1:'I understand that CYRANO provides interpretive guidance, not clinical or legal advice.',
+    disc_c2:'I confirm I will use CYRANO responsibly and that all information I provide is based on my own observations.',
+    btn_continue:'Continue',
+    api_lbl:'Anthropic API Key',
+    api_note:'Your key is stored only in this session and sent exclusively to Anthropic\'s API.',
+    ob_sub:'Before we begin — tell me about yourself',
+    ob_intro:'This will help me understand you better from the very first exchange.',
+    ob_name:'Your first name', ob_gender:'Gender', ob_age:'Age', ob_prof:'Profession', ob_sign:'Zodiac sign',
+    sc_title:'Select Scenario', sc_sub:'Choose the relational context',
+    sc1:'First Contact', sc2:'Flirting', sc3:'Escalation',
+    sc4:'Reconnection', sc5:'Break-up Recovery', sc6:'Exit Strategy',
+    sc_back:'← Back',
+    add_info_btn:'+ Add information',
+    gen_btn:'Generate Profile',
+    ai_title:'Add Information',
+    ai_sub:'Add anything you want CYRANO to know before generating the profile.',
+    ai_add:'Add & Continue', ai_cancel:'Cancel',
+    data_red:'Red', data_orange:'Orange', data_yellow:'Yellow', data_green:'Green',
+  },
+  it: {
+    disc_title:'Note Legali',
+    disc_t1:'CYRANO è un sistema di intelligenza relazionale che fornisce interpretazioni psicologiche e guida strategica basate sulle informazioni fornite dall\'utente. Non è un servizio psicologico o terapeutico autorizzato.',
+    disc_t2:'Tutte le analisi, le valutazioni di compatibilità e le raccomandazioni sono interpretazioni basate sui dati forniti dall\'utente e non devono essere trattate come diagnosi cliniche, consulenza legale o affermazioni fattuali su persone reali.',
+    disc_t3:'Le informazioni su terze parti vengono elaborate esclusivamente sulla base delle osservazioni riportate dall\'utente. CYRANO non conserva né condivide dati personali al di là della sessione corrente.',
+    disc_c1:'Comprendo che CYRANO fornisce orientamento interpretativo, non consulenza clinica o legale.',
+    disc_c2:'Confermo che utilizzerò CYRANO in modo responsabile e che tutte le informazioni che fornisco sono basate sulle mie osservazioni personali.',
+    btn_continue:'Continua',
+    api_lbl:'Chiave API Anthropic',
+    api_note:'La tua chiave è archiviata solo in questa sessione e inviata esclusivamente all\'API di Anthropic.',
+    ob_sub:'Prima di iniziare — parlami di te',
+    ob_intro:'Queste informazioni mi aiuteranno a conoscerti meglio fin dal primo scambio.',
+    ob_name:'Il tuo nome', ob_gender:'Genere', ob_age:'Età', ob_prof:'Professione', ob_sign:'Segno zodiacale',
+    sc_title:'Seleziona Scenario', sc_sub:'Scegli il contesto relazionale',
+    sc1:'Primo Contatto', sc2:'Flirt', sc3:'Escalation',
+    sc4:'Riconnessione', sc5:'Recupero Rottura', sc6:'Strategia di Uscita',
+    sc_back:'← Indietro',
+    add_info_btn:'+ Aggiungi informazioni',
+    gen_btn:'Genera Profilo',
+    ai_title:'Aggiungi Informazioni',
+    ai_sub:'Aggiungi qualsiasi cosa tu voglia che CYRANO sappia prima di generare il profilo.',
+    ai_add:'Aggiungi e continua', ai_cancel:'Annulla',
+    data_red:'Rosso', data_orange:'Arancio', data_yellow:'Giallo', data_green:'Verde',
+  },
+  fr: {
+    disc_title:'Avertissement Légal',
+    disc_t1:'CYRANO est un système d\'intelligence relationnelle qui fournit des interprétations psychologiques et des conseils stratégiques basés sur les informations fournies par l\'utilisateur.',
+    disc_t2:'Toutes les analyses et recommandations sont des interprétations basées sur les données fournies et ne doivent pas être traitées comme des diagnostics cliniques ou des conseils juridiques.',
+    disc_t3:'Les informations sur des tiers sont traitées uniquement sur la base des observations rapportées par l\'utilisateur.',
+    disc_c1:'Je comprends que CYRANO fournit des conseils interprétatifs, non des conseils cliniques ou juridiques.',
+    disc_c2:'Je confirme que j\'utiliserai CYRANO de manière responsable.',
+    btn_continue:'Continuer',
+    api_lbl:'Clé API Anthropic',
+    api_note:'Votre clé est stockée uniquement dans cette session.',
+    ob_sub:'Avant de commencer — parlez-moi de vous',
+    ob_intro:'Ces informations m\'aideront à mieux vous comprendre.',
+    ob_name:'Votre prénom', ob_gender:'Genre', ob_age:'Âge', ob_prof:'Profession', ob_sign:'Signe zodiacal',
+    sc_title:'Choisir un Scénario', sc_sub:'Choisissez le contexte relationnel',
+    sc1:'Premier Contact', sc2:'Flirt', sc3:'Escalade',
+    sc4:'Reconnexion', sc5:'Récupération Rupture', sc6:'Stratégie de Sortie',
+    sc_back:'← Retour',
+    add_info_btn:'+ Ajouter des informations',
+    gen_btn:'Générer le Profil',
+    ai_title:'Ajouter des Informations',
+    ai_sub:'Ajoutez tout ce que vous voulez que CYRANO sache avant de générer le profil.',
+    ai_add:'Ajouter et continuer', ai_cancel:'Annuler',
+    data_red:'Rouge', data_orange:'Orange', data_yellow:'Jaune', data_green:'Vert',
+  },
+  es: {
+    disc_title:'Aviso Legal',
+    disc_t1:'CYRANO es un sistema de inteligencia relacional que proporciona interpretaciones psicológicas y orientación estratégica basada en la información proporcionada por el usuario.',
+    disc_t2:'Todos los análisis y recomendaciones son interpretaciones y no deben tratarse como diagnósticos clínicos o asesoramiento legal.',
+    disc_t3:'La información sobre terceros se procesa únicamente en base a las observaciones reportadas por el usuario.',
+    disc_c1:'Entiendo que CYRANO proporciona orientación interpretativa, no asesoramiento clínico o legal.',
+    disc_c2:'Confirmo que usaré CYRANO de manera responsable.',
+    btn_continue:'Continuar',
+    api_lbl:'Clave API de Anthropic',
+    api_note:'Su clave se almacena solo en esta sesión.',
+    ob_sub:'Antes de comenzar — cuéntame sobre ti',
+    ob_intro:'Esta información me ayudará a entenderte mejor desde el primer momento.',
+    ob_name:'Tu nombre', ob_gender:'Género', ob_age:'Edad', ob_prof:'Profesión', ob_sign:'Signo zodiacal',
+    sc_title:'Seleccionar Escenario', sc_sub:'Elige el contexto relacional',
+    sc1:'Primer Contacto', sc2:'Coqueteo', sc3:'Escalada',
+    sc4:'Reconexión', sc5:'Recuperación de Ruptura', sc6:'Estrategia de Salida',
+    sc_back:'← Atrás',
+    add_info_btn:'+ Agregar información',
+    gen_btn:'Generar Perfil',
+    ai_title:'Agregar Información',
+    ai_sub:'Agrega cualquier cosa que quieras que CYRANO sepa antes de generar el perfil.',
+    ai_add:'Agregar y continuar', ai_cancel:'Cancelar',
+    data_red:'Rojo', data_orange:'Naranja', data_yellow:'Amarillo', data_green:'Verde',
+  },
+  ar: {
+    disc_title:'إخلاء المسؤولية القانونية',
+    disc_t1:'CYRANO هو نظام ذكاء علائقي يقدم تفسيرات نفسية وإرشادات استراتيجية بناءً على المعلومات التي يقدمها المستخدم.',
+    disc_t2:'جميع التحليلات والتوصيات هي تفسيرات ولا ينبغي التعامل معها كتشخيصات سريرية أو مشورة قانونية.',
+    disc_t3:'تُعالج المعلومات المتعلقة بأطراف ثالثة فقط بناءً على الملاحظات التي أبلغ عنها المستخدم.',
+    disc_c1:'أفهم أن CYRANO يقدم إرشادات تفسيرية، وليس مشورة سريرية أو قانونية.',
+    disc_c2:'أؤكد أنني سأستخدم CYRANO بمسؤولية.',
+    btn_continue:'متابعة',
+    api_lbl:'مفتاح API من Anthropic',
+    api_note:'يُخزَّن مفتاحك فقط في هذه الجلسة.',
+    ob_sub:'قبل أن نبدأ — أخبرني عن نفسك',
+    ob_intro:'ستساعدني هذه المعلومات على فهمك بشكل أفضل.',
+    ob_name:'اسمك الأول', ob_gender:'الجنس', ob_age:'العمر', ob_prof:'المهنة', ob_sign:'برج الميلاد',
+    sc_title:'اختر السيناريو', sc_sub:'اختر السياق العلائقي',
+    sc1:'أول تواصل', sc2:'مغازلة', sc3:'تصعيد',
+    sc4:'تواصل مجدد', sc5:'التعافي من الانفصال', sc6:'استراتيجية الخروج',
+    sc_back:'← رجوع',
+    add_info_btn:'+ إضافة معلومات',
+    gen_btn:'إنشاء الملف الشخصي',
+    ai_title:'إضافة معلومات',
+    ai_sub:'أضف أي شيء تريد أن يعرفه CYRANO قبل إنشاء الملف الشخصي.',
+    ai_add:'أضف وتابع', ai_cancel:'إلغاء',
+    data_red:'أحمر', data_orange:'برتقالي', data_yellow:'أصفر', data_green:'أخضر',
+  },
+  de: {
+    disc_title:'Rechtlicher Hinweis',
+    disc_t1:'CYRANO ist ein relationales Intelligenzsystem, das psychologische Interpretationen und strategische Beratung auf der Grundlage der vom Benutzer bereitgestellten Informationen bietet.',
+    disc_t2:'Alle Analysen und Empfehlungen sind Interpretationen und sollten nicht als klinische Diagnosen oder rechtliche Beratung behandelt werden.',
+    disc_t3:'Informationen über Dritte werden ausschließlich auf der Grundlage der vom Benutzer gemeldeten Beobachtungen verarbeitet.',
+    disc_c1:'Ich verstehe, dass CYRANO interpretative Hinweise gibt, keine klinischen oder rechtlichen Ratschläge.',
+    disc_c2:'Ich bestätige, dass ich CYRANO verantwortungsvoll nutzen werde.',
+    btn_continue:'Weiter',
+    api_lbl:'Anthropic API-Schlüssel',
+    api_note:'Ihr Schlüssel wird nur in dieser Sitzung gespeichert.',
+    ob_sub:'Bevor wir beginnen — erzählen Sie mir von sich',
+    ob_intro:'Diese Informationen helfen mir, Sie von Anfang an besser zu verstehen.',
+    ob_name:'Ihr Vorname', ob_gender:'Geschlecht', ob_age:'Alter', ob_prof:'Beruf', ob_sign:'Sternzeichen',
+    sc_title:'Szenario auswählen', sc_sub:'Wählen Sie den relationalen Kontext',
+    sc1:'Erstkontakt', sc2:'Flirten', sc3:'Eskalation',
+    sc4:'Wiederverbindung', sc5:'Trennungsverarbeitung', sc6:'Ausstiegsstrategie',
+    sc_back:'← Zurück',
+    add_info_btn:'+ Informationen hinzufügen',
+    gen_btn:'Profil generieren',
+    ai_title:'Informationen hinzufügen',
+    ai_sub:'Fügen Sie alles hinzu, was CYRANO vor der Profilerstellung wissen soll.',
+    ai_add:'Hinzufügen und weiter', ai_cancel:'Abbrechen',
+    data_red:'Rot', data_orange:'Orange', data_yellow:'Gelb', data_green:'Grün',
+  }
+};
 
-PHASE 1 - INTAKE (first 4-6 exchanges):
-- Begin with a warm but professional opening question asking the user to describe Subject B
-- Ask follow-up questions that progressively deepen understanding
-- Ask about: communication patterns, behavioral observations, emotional dynamics, who initiates, response rhythms, signs of warmth/coldness/ambiguity
-- Ask about Subject A as well: their emotional investment style, communication approach, what they seek
-- Ask about astrological data if not provided (birth date/sign of B)
-- After sufficient data (4+ substantive exchanges), add a special marker [READY_TO_ANALYZE] at the end of your response
+function t(key) { return (T[lang] && T[lang][key]) || T['en'][key] || key; }
 
-INTAKE TONE: Professional like a psychologist but warm and allied with the user. Ask ONE focused question per message. Never flood with multiple questions.
+// ══ NAVIGATION ══
+function go(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+}
 
-PROFILE GENERATION (when asked to generate):
-When the user triggers analysis, respond with a structured JSON object ONLY, no other text:
+function pickLang(el, code) {
+  document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('sel'));
+  el.classList.add('sel');
+  lang = code;
+  setTimeout(() => { applyLang(); go('s-disc'); }, 200);
+}
+
+function applyLang() {
+  const ids = {
+    'disc-t1': 'disc_title', 'disc-t2': 'disc_t1', 'disc-t3': 'disc_t2',
+    'disc-c1': 'disc_c1', 'disc-c2': 'disc_c2',
+    'btn-disc': 'btn_continue', 'api-lbl': 'api_lbl', 'api-note': 'api_note',
+    'ob-sub': 'ob_sub', 'ob-intro': 'ob_intro',
+    'ob-name-lbl': 'ob_name', 'ob-gender-lbl': 'ob_gender',
+    'ob-age-lbl': 'ob_age', 'ob-prof-lbl': 'ob_prof', 'ob-sign-lbl': 'ob_sign',
+    'btn-ob': 'btn_continue', 'btn-api': 'btn_continue',
+    'sc-title': 'sc_title', 'sc-sub': 'sc_sub',
+    'sc1': 'sc1', 'sc2': 'sc2', 'sc3': 'sc3', 'sc4': 'sc4', 'sc5': 'sc5', 'sc6': 'sc6',
+    'btn-sc-back': 'sc_back',
+    'add-info-btn': 'add_info_btn', 'gen-btn': 'gen_btn',
+    'ai-title': 'ai_title', 'ai-sub': 'ai_sub',
+  };
+  Object.entries(ids).forEach(([id, key]) => {
+    const el = document.getElementById(id);
+    if (el) el.textContent = t(key);
+  });
+  // placeholders
+  const phs = { 'ob-name': 'ob_name', 'ob-age': 'ob_age', 'ob-prof': 'ob_prof' };
+  Object.entries(phs).forEach(([id, key]) => {
+    const el = document.getElementById(id);
+    if (el) el.placeholder = t(key);
+  });
+}
+
+// ══ DISCLAIMER ══
+function toggle(id) {
+  const el = document.getElementById(id);
+  el.checked = !el.checked;
+  checkDisc();
+}
+function checkDisc() {
+  const ok = document.getElementById('chk1').checked && document.getElementById('chk2').checked;
+  const btn = document.getElementById('btn-disc');
+  btn.disabled = !ok;
+  btn.style.opacity = ok ? '1' : '0.35';
+}
+
+// ══ API KEY ══
+function saveKey() {
+  const k = document.getElementById('api-input').value.trim();
+  if (!k.startsWith('sk-ant-')) { alert('Please enter a valid Anthropic API key.'); return; }
+  apiKey = k;
+  go('s-onboard');
+}
+document.getElementById('api-input').addEventListener('keydown', e => { if (e.key==='Enter') saveKey(); });
+
+// ══ ONBOARDING ══
+function saveOnboard() {
+  const name = document.getElementById('ob-name').value.trim();
+  if (!name) { alert(t('ob_name') + '?'); return; }
+  userA = {
+    name: name,
+    gender: document.getElementById('ob-gender').value || 'not specified',
+    age: document.getElementById('ob-age').value || 'not specified',
+    profession: document.getElementById('ob-prof').value || 'not specified',
+    sign: document.getElementById('ob-sign').value || 'not specified'
+  };
+  go('s-scenario');
+}
+
+// ══ SCENARIO ══
+function pickScenario(el, name) {
+  document.querySelectorAll('.scenario-card').forEach(c => c.classList.remove('sel'));
+  el.classList.add('sel');
+  scenario = name;
+  const btn = document.getElementById('btn-sc');
+  btn.disabled = false;
+  btn.style.opacity = '1';
+}
+
+// ══ CHAT ══
+async function startChat() {
+  if (!scenario) return;
+  history = [];
+  msgCount = 0;
+  readyToGen = false;
+  document.getElementById('chat-wrap').innerHTML = `
+    <div class="typing" id="typing">
+      <div class="dot"></div><div class="dot"></div><div class="dot"></div>
+    </div>`;
+  document.getElementById('intake-badge').textContent = scenario;
+  document.getElementById('rpt-scenario').textContent = scenario + ' — Profile Report';
+  document.getElementById('gen-btn').classList.remove('on');
+  document.getElementById('add-info-btn').classList.remove('on');
+  setStrength(0);
+  go('s-intake');
+  await botSpeak(openingMsg());
+}
+
+function openingMsg() {
+  const name = userA.name;
+  const openings = {
+    'First Contact': `${name}, tell me about this person. Do not summarise too quickly. Describe how they behave, how they communicate, and how they affect you — even from a distance.`,
+    'Flirting': `${name}, tell me about this person. Describe how they behave around you, how they communicate, and what the dynamic feels like so far.`,
+    'Escalation': `${name}, describe the situation as it stands. How has this developed, what is the current dynamic, and what are you trying to move toward?`,
+    'Reconnection': `${name}, tell me the history first — what was the dynamic before, how did it end, and what has happened since contact resumed?`,
+    'Break-up Recovery': `${name}, tell me about this person and what ended. Do not rush — I need to understand the dynamic that existed.`,
+    'Exit Strategy': `${name}, describe the relationship as it is now. What makes you want to exit, and what have you tried so far?`,
+  };
+  return openings[scenario] || `${name}, tell me about this person. Describe how they behave, how they communicate, and how they make you feel.`;
+}
+
+function addMsg(role, text) {
+  const wrap = document.getElementById('chat-wrap');
+  const typing = document.getElementById('typing');
+  const clean = text.replace('[READY_TO_ANALYZE]','').trim();
+  const div = document.createElement('div');
+  div.className = `msg ${role==='bot'?'bot':'usr'}`;
+  div.innerHTML = `<div class="msg-who">${role==='bot'?'CYRANO':userA.name||'YOU'}</div>
+    <div class="msg-bubble">${clean.replace(/\n/g,'<br>')}</div>`;
+  if (typing) wrap.insertBefore(div, typing);
+  else wrap.appendChild(div);
+  wrap.scrollTop = wrap.scrollHeight;
+}
+
+function showTyping(v) {
+  const t = document.getElementById('typing');
+  if (t) t.className = v ? 'typing on' : 'typing';
+}
+
+async function botSpeak(text) {
+  showTyping(true);
+  await sleep(700 + Math.random()*500);
+  showTyping(false);
+  addMsg('bot', text);
+  history.push({ role:'assistant', content:text });
+  if (text.includes('[READY_TO_ANALYZE]')) {
+    readyToGen = true;
+    document.getElementById('gen-btn').classList.add('on');
+    document.getElementById('add-info-btn').classList.add('on');
+  }
+  setStrength(Math.min(msgCount*16, 82));
+}
+
+async function send() {
+  const ta = document.getElementById('chat-ta');
+  const text = ta.value.trim();
+  if (!text || !apiKey) return;
+  ta.value = ''; ta.style.height='auto';
+  document.getElementById('send-btn').disabled = true;
+  addMsg('usr', text);
+  history.push({ role:'user', content:text });
+  msgCount++;
+  setStrength(Math.min(msgCount*16, 82));
+  try {
+    const r = await claude(history, false);
+    await botSpeak(r);
+  } catch(e) {
+    await botSpeak('There was a connection issue. Please check your API key and try again.');
+  }
+  document.getElementById('send-btn').disabled = false;
+  document.getElementById('chat-ta').focus();
+}
+
+function onKey(e) { if (e.key==='Enter'&&!e.shiftKey){ e.preventDefault(); send(); } }
+function autoH(el) { el.style.height='auto'; el.style.height=Math.min(el.scrollHeight,110)+'px'; }
+
+// ══ ADD INFO ══
+function openAddInfo() { document.getElementById('s-addinfo').classList.add('open'); }
+function closeAddInfo() {
+  document.getElementById('s-addinfo').classList.remove('open');
+  document.getElementById('addinfo-ta').value='';
+}
+async function submitAddInfo() {
+  const txt = document.getElementById('addinfo-ta').value.trim();
+  if (!txt) { closeAddInfo(); return; }
+  closeAddInfo();
+  addMsg('usr', txt);
+  history.push({ role:'user', content: txt });
+  msgCount++;
+  setStrength(Math.min(msgCount*16+10, 90));
+  try {
+    const r = await claude(history, false);
+    await botSpeak(r);
+  } catch(e) {}
+}
+
+// ══ ANALYSIS ══
+async function runAnalysis() {
+  go('s-analysis');
+  animKw();
+  const msgs = [
+    ...history,
+    { role:'user', content:`Generate the complete profile report now. Respond ONLY with a raw JSON object, no markdown, no backticks, no explanation. Just the JSON.` }
+  ];
+  let data;
+  try {
+    const r = await claude(msgs, true);
+    data = parseReport(r);
+  } catch(e) {
+    data = fallbackReport();
+  }
+  await sleep(2500);
+  renderReport(data);
+  go('s-report');
+}
+
+function animKw() {
+  ['ak1','ak2','ak3','ak4','ak5','ak6'].forEach((id,i) => {
+    setTimeout(() => document.getElementById(id).classList.add('lit'), i*500);
+  });
+}
+
+function parseReport(txt) {
+  try {
+    let c = txt.replace(/```json|```/g,'').trim();
+    const s = c.indexOf('{'), e = c.lastIndexOf('}');
+    if (s>=0 && e>=0) c = c.slice(s, e+1);
+    return JSON.parse(c);
+  } catch(e) {
+    return fallbackReport();
+  }
+}
+
+function fallbackReport() {
+  return {
+    archetype_primary:'The Venusian',
+    archetype_secondary:'The Guardian',
+    data_strength:'Yellow',
+    compatibility_score:3.8,
+    short_term:'High', long_term:'Medium',
+    decision:'proceed',
+    decision_text:'Proceed',
+    decision_desc:'The dynamic shows sufficient compatibility and reciprocal signals to merit continued investment.',
+    profile_b:'This person displays emotional selectivity combined with a controlled exterior. Their communication patterns suggest someone who values depth over frequency and responds to authenticity rather than pressure.',
+    profile_a:`${userA.name} invests with intensity and conviction. This authenticity is precisely what opens certain people — but it is also the variable that benefits most from calibration over time.`,
+    compatibility_text:'Emotional rhythm shows complementary patterns. Communication styles align. Long-term durability will depend on pacing.',
+    risk:'none', risk_text:'',
+    strategy:'Continue with authenticity. Do not artificially moderate your investment. Remain attentive to moments when the other person slows — interpret these as integration rather than withdrawal.',
+    niq:[
+      {priority:'HIGH', text:'Birth date, time and place of Subject B — activates the astrological refinement layer and sharpens compatibility precision.'},
+      {priority:'MEDIUM', text:'How does Subject B respond when you are less available? This reveals the underlying attachment structure.'},
+      {priority:'MEDIUM', text:'Pattern of past relationships — why they ended, not the details. Identifies recurring relational dynamics.'}
+    ]
+  };
+}
+
+function renderReport(d) {
+  setStrength(100);
+  const stars = '★'.repeat(Math.round(d.compatibility_score))+'☆'.repeat(5-Math.round(d.compatibility_score));
+  const sc = {Yellow:'yellow',Green:'green',Orange:'orange',Red:'red'}[d.data_strength]||'yellow';
+  const dc = {proceed:'proceed',caution:'caution',stop:'stop'}[d.decision]||'proceed';
+  const di = {proceed:'✦',caution:'◈',stop:'◇'}[d.decision]||'✦';
+  const risk = d.risk && d.risk!=='none' ? `
+    <div class="r-section">
+      <div class="r-label">Risk Pattern</div>
+      <div class="r-card" style="border-left:2px solid rgba(200,50,40,0.5)">
+        <div class="r-text">${d.risk_text}</div>
+      </div>
+    </div>` : '';
+  const niq = (d.niq||[]).map(n=>`
+    <div class="niq-item">
+      <div class="niq-pri">${n.priority}</div>
+      <div class="niq-txt">${n.text}</div>
+    </div>`).join('');
+
+  document.getElementById('rpt-body').innerHTML = `
+    <div class="badge ${sc}">● Data Strength: ${d.data_strength}</div>
+    <div class="r-section">
+      <div class="r-label">Subject B — Profile</div>
+      <div class="arch-card">
+        <div class="arch-name">${d.archetype_primary}</div>
+        <div class="arch-sec">+ ${d.archetype_secondary}</div>
+        <div class="arch-desc">${d.profile_b}</div>
+      </div>
+    </div>
+    <div class="r-section">
+      <div class="r-label">Subject A — ${userA.name||'You'}</div>
+      <div class="r-card"><div class="r-text">${d.profile_a}</div></div>
+    </div>
+    <div class="r-section">
+      <div class="r-label">Compatibility</div>
+      <div class="score-row">
+        <div><div class="score-num">${Number(d.compatibility_score).toFixed(1)}</div>
+        <div class="score-lbl">out of 5.0</div></div>
+        <div><div class="score-stars">${stars}</div>
+        <div class="score-txt">${d.compatibility_text}</div></div>
+      </div>
+      <div class="outlook-row">
+        <div class="outlook-pill"><div class="op-lbl">Short Term</div><div class="op-val">${d.short_term}</div></div>
+        <div class="outlook-pill"><div class="op-lbl">Long Term</div><div class="op-val">${d.long_term}</div></div>
+      </div>
+    </div>
+    ${risk}
+    <div class="r-section">
+      <div class="r-label">Decision</div>
+      <div class="dec-card ${dc}">
+        <div class="dec-icon">${di}</div>
+        <div class="dec-verdict">${d.decision_text}</div>
+        <div class="dec-desc">${d.decision_desc}</div>
+      </div>
+    </div>
+    <div class="r-section">
+      <div class="r-label">Strategy</div>
+      <div class="r-card"><div class="r-text">${d.strategy}</div></div>
+    </div>
+    <div class="r-section">
+      <div class="r-label">Next Intelligence Queue</div>
+      ${niq}
+    </div>
+    <div class="report-actions">
+      <button class="btn-gold" onclick="newSession()">New Session</button>
+      <button class="btn-outline" onclick="go('s-intake')">Return to Intake</button>
+    </div>`;
+}
+
+function newSession() {
+  history=[];msgCount=0;readyToGen=false;
+  document.querySelectorAll('.scenario-card').forEach(c=>c.classList.remove('sel'));
+  scenario='';
+  const btn=document.getElementById('btn-sc');
+  btn.disabled=true; btn.style.opacity='0.35';
+  go('s-scenario');
+}
+
+// ══ API ══
+const SYSTEM = (userProfile) => `You are CYRANO, a sophisticated personal relationship intelligence system. You speak with authority, precision, and psychological depth. You are allied with the user but never sycophantic.
+
+SUBJECT A PROFILE (the user):
+Name: ${userProfile.name}
+Gender: ${userProfile.gender}
+Age: ${userProfile.age}
+Profession: ${userProfile.profession}
+Zodiac Sign: ${userProfile.sign}
+
+Use this information about Subject A throughout the conversation. Reference their name naturally. During the intake, continue to explore Subject A's psychological and emotional profile — their relational style, emotional investment patterns, past relationship tendencies, attachment style — in addition to asking about Subject B.
+
+INTAKE PHASE (first 4-6 exchanges):
+- Open with a warm but precise question about Subject B
+- Ask one focused question per message — never multiple questions at once
+- Explore both B and A progressively
+- After 4+ meaningful exchanges, add [READY_TO_ANALYZE] at the end of your response (once only)
+- Tone: professional like a psychologist, warm, clearly on the user's side
+
+PROFILE GENERATION:
+When asked to generate the report, respond ONLY with this JSON (no other text, no markdown):
 {
   "archetype_primary": "The [Name]",
   "archetype_secondary": "The [Name]",
-  "data_strength": "Yellow|Green|Orange|Red",
+  "data_strength": "Yellow",
   "compatibility_score": 4.2,
-  "short_term": "High|Medium|Low",
-  "long_term": "High|Medium|Low",
-  "decision": "proceed|caution|stop",
+  "short_term": "High",
+  "long_term": "Medium",
+  "decision": "proceed",
   "decision_text": "Proceed",
   "decision_desc": "...",
-  "profile_b": "...(3-4 sentences, psychological reading of Subject B, written in Cormorant italic style, authoritative and precise)",
-  "profile_a": "...(2-3 sentences about Subject A's relational style)",
-  "compatibility_text": "...(2-3 sentences on compatibility dynamics)",
-  "risk": "none|low|moderate|high",
-  "risk_text": "...(if risk detected, describe pattern)",
-  "strategy": "...(3-4 sentences of concrete strategic guidance)",
+  "profile_b": "...(3-4 sentences, authoritative psychological reading)",
+  "profile_a": "...(2-3 sentences about ${userProfile.name}'s relational style based on conversation)",
+  "compatibility_text": "...(2 sentences)",
+  "risk": "none",
+  "risk_text": "...",
+  "strategy": "...(3-4 sentences of concrete guidance)",
   "niq": [
-    {"priority": "HIGH", "text": "...what to find out and why"},
+    {"priority": "HIGH", "text": "..."},
     {"priority": "MEDIUM", "text": "..."},
     {"priority": "MEDIUM", "text": "..."}
   ]
 }`;
 
-// ── NAVIGATION ──
-function showScreen(id) {
-  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
-  window.scrollTo(0, 0);
-}
-
-function saveApiKey() {
-  const key = document.getElementById('apikey-input').value.trim();
-  if (!key.startsWith('sk-ant-')) {
-    alert('Please enter a valid Anthropic API key starting with sk-ant-');
-    return;
-  }
-  apiKey = key;
-  showScreen('screen-landing');
-}
-
-function selectScenario(el, name) {
-  document.querySelectorAll('.scenario-card').forEach(c => c.classList.remove('selected'));
-  el.classList.add('selected');
-  selectedScenario = name;
-  const btn = document.getElementById('btn-start-session');
-  btn.style.opacity = '1';
-  btn.style.pointerEvents = 'auto';
-}
-
-async function startSession() {
-  if (!selectedScenario) return;
-  conversationHistory = [];
-  messageCount = 0;
-  dataStrength = 0;
-  document.getElementById('chat-area').innerHTML = `
-    <div class="typing-indicator" id="typing-indicator">
-      <div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div>
-    </div>`;
-  document.getElementById('intake-scenario-badge').textContent = selectedScenario;
-  document.getElementById('report-scenario-label').textContent = selectedScenario + ' — Profile Report';
-  document.getElementById('btn-analyze').classList.remove('visible');
-  updateStrength(0);
-  showScreen('screen-intake');
-  await cyranoSpeak(getOpeningMessage());
-}
-
-function getOpeningMessage() {
-  const openings = {
-    'First Contact': 'Tell me about this person. Do not summarise too quickly. Describe how they behave, how they communicate, and how they affect you — even from a distance.',
-    'Flirting': 'Tell me about this person. Describe how they behave around you, how they communicate, and what the dynamic feels like so far.',
-    'Escalation': 'Describe the situation as it stands. How has this developed, what is the current dynamic, and what are you trying to move toward?',
-    'Reconnection': 'Tell me the history first — what was the dynamic before, how did it end, and what has happened since contact resumed?',
-    'Break-up Recovery': 'Tell me about this person and what ended. Do not rush the summary — I need to understand the dynamic that existed.',
-    'Exit Strategy': 'Describe the relationship as it is now. What makes you want to exit, and what have you tried so far?'
-  };
-  return openings[selectedScenario] || 'Tell me about this person. Describe how they behave, how they communicate, and how they make you feel.';
-}
-
-// ── CHAT ──
-function addMessage(role, text) {
-  const area = document.getElementById('chat-area');
-  const typing = document.getElementById('typing-indicator');
-  const div = document.createElement('div');
-  div.className = `message ${role}`;
-  const cleanText = text.replace('[READY_TO_ANALYZE]', '').trim();
-  div.innerHTML = `
-    <div class="message-sender">${role === 'cyrano' ? 'CYRANO' : 'YOU'}</div>
-    <div class="message-bubble">${cleanText.replace(/\n/g, '<br>')}</div>`;
-  if (typing) area.insertBefore(div, typing);
-  else area.appendChild(div);
-  area.scrollTop = area.scrollHeight;
-}
-
-function showTyping(show) {
-  const t = document.getElementById('typing-indicator');
-  if (t) t.classList.toggle('visible', show);
-}
-
-async function cyranoSpeak(text) {
-  showTyping(true);
-  await sleep(800 + Math.random() * 600);
-  showTyping(false);
-  addMessage('cyrano', text);
-  conversationHistory.push({ role: 'assistant', content: text });
-  if (text.includes('[READY_TO_ANALYZE]')) {
-    document.getElementById('btn-analyze').classList.add('visible');
-  }
-  updateStrength(Math.min(messageCount * 18, 85));
-}
-
-async function sendMessage() {
-  const input = document.getElementById('chat-input');
-  const text = input.value.trim();
-  if (!text || !apiKey) return;
-  input.value = '';
-  input.style.height = 'auto';
-  document.getElementById('btn-send').disabled = true;
-  addMessage('user', text);
-  conversationHistory.push({ role: 'user', content: text });
-  messageCount++;
-  updateStrength(Math.min(messageCount * 18, 85));
-  try {
-    const response = await callClaude(conversationHistory);
-    await cyranoSpeak(response);
-  } catch (e) {
-    await cyranoSpeak('There was a connection issue. Please check your API key and try again.');
-  }
-  document.getElementById('btn-send').disabled = false;
-  document.getElementById('chat-input').focus();
-}
-
-function handleKey(e) {
-  if (e.key === 'Enter' && !e.shiftKey) {
-    e.preventDefault();
-    sendMessage();
-  }
-}
-
-function autoResize(el) {
-  el.style.height = 'auto';
-  el.style.height = Math.min(el.scrollHeight, 120) + 'px';
-}
-
-// ── ANALYSIS ──
-async function runAnalysis() {
-  showScreen('screen-analysis');
-  animateKeywords();
-  const analysisMessages = [
-    ...conversationHistory,
-    { role: 'user', content: 'Generate the complete profile report now. Respond ONLY with the JSON object, no other text. No markdown, no backticks, just raw JSON.' }
-  ];
-  try {
-    const response = await callClaude(analysisMessages, true);
-    await sleep(2000);
-    const data = parseReport(response);
-    renderReport(data);
-    showScreen('screen-report');
-  } catch (e) {
-    console.error('Analysis error:', e);
-    // Use fallback report with collected data
-    const fallback = buildFallbackReport();
-    renderReport(fallback);
-    showScreen('screen-report');
-  }
-}
-
-function buildFallbackReport() {
-  return {
-    archetype_primary: 'The Venusian',
-    archetype_secondary: 'The Guardian',
-    data_strength: 'Yellow',
-    compatibility_score: 3.8,
-    short_term: 'High',
-    long_term: 'Medium',
-    decision: 'proceed',
-    decision_text: 'Proceed',
-    decision_desc: 'Based on the data collected, the dynamic shows sufficient compatibility and reciprocal investment to merit continued engagement.',
-    profile_b: 'This person displays emotional selectivity combined with a controlled exterior. Their communication patterns suggest someone who values depth over frequency, and who responds to authenticity rather than pressure. The dynamic observed indicates genuine interest balanced with natural caution.',
-    profile_a: 'You invest with intensity and move with conviction. This is both your strength and the variable most likely to require calibration in moments when the other person needs space to integrate.',
-    compatibility_text: 'Emotional rhythm shows complementary patterns. Communication styles align well. Long-term durability will depend on pacing and the ability to sustain intensity without pressure.',
-    risk: 'none',
-    risk_text: '',
-    strategy: 'Continue with authenticity. The dynamic has been opened by genuine expression — do not artificially moderate your investment. Remain attentive to moments when the other person slows down, interpreting these as integration rather than withdrawal.',
-    niq: [
-      { priority: 'HIGH', text: 'Birth date, time and place of Subject B — needed to activate the astrological refinement layer and sharpen compatibility precision significantly.' },
-      { priority: 'MEDIUM', text: 'How does Subject B respond when you are less available or slower to reply? This reveals the underlying attachment structure.' },
-      { priority: 'MEDIUM', text: 'What is the pattern of past relationships — not the detail, but why they ended. This identifies recurring relational dynamics.' }
-    ]
-  };
-}
-
-function animateKeywords() {
-  const kws = ['kw1','kw2','kw3','kw4','kw5','kw6'];
-  kws.forEach((id, i) => {
-    setTimeout(() => {
-      document.getElementById(id).classList.add('active');
-    }, i * 500);
-  });
-}
-
-function parseReport(text) {
-  try {
-    const clean = text.replace(/```json|```/g, '').trim();
-    return JSON.parse(clean);
-  } catch (e) {
-    return {
-      archetype_primary: 'The Venusian',
-      archetype_secondary: 'The Guardian',
-      data_strength: 'Yellow',
-      compatibility_score: 3.8,
-      short_term: 'High',
-      long_term: 'Medium',
-      decision: 'proceed',
-      decision_text: 'Proceed',
-      decision_desc: 'The dynamic shows sufficient compatibility to merit continued investment.',
-      profile_b: 'This person displays emotional selectivity combined with a controlled exterior. Their communication patterns suggest someone who values depth over frequency, and who responds to authenticity rather than pressure.',
-      profile_a: 'You invest with intensity and move with conviction. This is both your strength and the variable most likely to require calibration.',
-      compatibility_text: 'Emotional rhythm is complementary. Communication styles align. Long-term durability depends on pacing.',
-      risk: 'none',
-      risk_text: '',
-      strategy: 'Continue with authenticity. Do not artificially moderate your investment — it is precisely what has opened this dynamic. Monitor for moments when the other person needs space to integrate.',
-      niq: [
-        { priority: 'HIGH', text: 'Birth date and time of Subject B — needed to refine the astrological layer and sharpen compatibility precision.' },
-        { priority: 'MEDIUM', text: 'How does Subject B respond when you are less available? This reveals attachment structure.' },
-        { priority: 'MEDIUM', text: 'Has Subject B mentioned past relationships? The pattern of how they ended reveals recurring relational dynamics.' }
-      ]
-    };
-  }
-}
-
-function renderReport(data) {
-  const stars = '★'.repeat(Math.round(data.compatibility_score)) + '☆'.repeat(5 - Math.round(data.compatibility_score));
-  const strengthClass = { Yellow: 'yellow', Green: 'green', Orange: 'orange', Red: 'orange' }[data.data_strength] || 'yellow';
-  const decisionClass = { proceed: 'proceed', caution: 'caution', stop: 'stop' }[data.decision] || 'proceed';
-  const decisionIcon = { proceed: '✦', caution: '◈', stop: '◇' }[data.decision] || '✦';
-  const niqHTML = (data.niq || []).map(n => `
-    <div class="niq-item">
-      <div class="niq-priority">${n.priority}</div>
-      <div class="niq-text">${n.text}</div>
-    </div>`).join('');
-  const riskHTML = data.risk && data.risk !== 'none' ? `
-    <div class="report-section">
-      <div class="report-section-label">Risk Pattern</div>
-      <div class="archetype-card" style="border-color:rgba(192,57,43,0.3)">
-        <div class="report-text">${data.risk_text}</div>
-      </div>
-    </div>` : '';
-
-  document.getElementById('report-body').innerHTML = `
-    <div class="strength-badge ${strengthClass}">● Data Strength: ${data.data_strength}</div>
-    <div class="report-section">
-      <div class="report-section-label">Subject B — Profile</div>
-      <div class="archetype-card">
-        <div class="archetype-name">${data.archetype_primary}</div>
-        <div class="archetype-secondary">+ ${data.archetype_secondary}</div>
-        <div class="archetype-desc">${data.profile_b}</div>
-      </div>
-    </div>
-    <div class="report-section">
-      <div class="report-section-label">Subject A — Profile</div>
-      <div class="archetype-card" style="border-color:rgba(255,255,255,0.1)">
-        <div class="report-text">${data.profile_a}</div>
-      </div>
-    </div>
-    <div class="report-section">
-      <div class="report-section-label">Compatibility</div>
-      <div class="score-display">
-        <div>
-          <div class="score-number">${Number(data.compatibility_score).toFixed(1)}</div>
-          <div class="score-label">out of 5.0</div>
-        </div>
-        <div>
-          <div class="score-stars">${stars}</div>
-          <div style="font-size:11px;color:var(--light-gray);margin-top:6px">${data.compatibility_text}</div>
-        </div>
-      </div>
-      <div class="outlook-row">
-        <div class="outlook-pill">
-          <div class="outlook-pill-label">Short Term</div>
-          <div class="outlook-pill-value">${data.short_term}</div>
-        </div>
-        <div class="outlook-pill">
-          <div class="outlook-pill-label">Long Term</div>
-          <div class="outlook-pill-value">${data.long_term}</div>
-        </div>
-      </div>
-    </div>
-    ${riskHTML}
-    <div class="report-section">
-      <div class="report-section-label">Decision</div>
-      <div class="decision-card ${decisionClass}">
-        <div class="decision-icon">${decisionIcon}</div>
-        <div class="decision-verdict">${data.decision_text}</div>
-        <div class="decision-desc">${data.decision_desc}</div>
-      </div>
-    </div>
-    <div class="report-section">
-      <div class="report-section-label">Strategy</div>
-      <div class="archetype-card">
-        <div class="report-text">${data.strategy}</div>
-      </div>
-    </div>
-    <div class="report-section">
-      <div class="report-section-label">Next Intelligence Queue</div>
-      ${niqHTML}
-    </div>
-    <div style="padding: 32px 0 16px; text-align:center">
-      <button class="btn-primary" style="max-width:300px;margin:0 auto" onclick="newSession()">New Session</button>
-      <button class="btn-ghost" style="max-width:300px;margin:8px auto 0" onclick="showScreen('screen-intake')">Return to Intake</button>
-    </div>`;
-  updateStrength(100);
-}
-
-function newSession() {
-  conversationHistory = [];
-  messageCount = 0;
-  showScreen('screen-scenario');
-}
-
-// ── API ──
-async function callClaude(messages, forAnalysis = false) {
+async function claude(msgs, isAnalysis) {
   const payload = {
-    model: 'claude-sonnet-4-6',
-    max_tokens: forAnalysis ? 2000 : 600,
-    system: SYSTEM_PROMPT,
-    messages: messages
+    model:'claude-sonnet-4-6',
+    max_tokens: isAnalysis ? 2000 : 600,
+    system: SYSTEM(userA),
+    messages: msgs
   };
-  const proxies = [
-    { url: 'https://api.anthropic.com/v1/messages', extra: { 'anthropic-dangerous-direct-browser-access': 'true' } },
-    { url: 'https://corsproxy.io/?https://api.anthropic.com/v1/messages', extra: {} },
-    { url: 'https://api.allorigins.win/raw?url=' + encodeURIComponent('https://api.anthropic.com/v1/messages'), extra: {} }
+  const endpoints = [
+    { url:'https://api.anthropic.com/v1/messages',
+      headers:{'Content-Type':'application/json','x-api-key':apiKey,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'} },
+    { url:'https://corsproxy.io/?https://api.anthropic.com/v1/messages',
+      headers:{'Content-Type':'application/json','x-api-key':apiKey,'anthropic-version':'2023-06-01'} },
   ];
-  for (const proxy of proxies) {
+  for (const ep of endpoints) {
     try {
-      const res = await fetch(proxy.url, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'x-api-key': apiKey,
-          'anthropic-version': '2023-06-01',
-          ...proxy.extra
-        },
-        body: JSON.stringify(payload)
-      });
+      const res = await fetch(ep.url,{method:'POST',headers:ep.headers,body:JSON.stringify(payload)});
       if (!res.ok) continue;
       const data = await res.json();
-      if (data.content && data.content[0]) return data.content[0].text;
-    } catch (e) { continue; }
+      if (data.content?.[0]?.text) return data.content[0].text;
+    } catch(e){ continue; }
   }
-  throw new Error('Connection failed');
+  throw new Error('failed');
 }
 
-// ── HELPERS ──
-function updateStrength(pct) {
-  dataStrength = pct;
-  document.getElementById('strength-fill').style.width = pct + '%';
-  let label = '—';
-  if (pct > 0 && pct < 30) label = 'Red';
-  else if (pct >= 30 && pct < 55) label = 'Orange';
-  else if (pct >= 55 && pct < 80) label = 'Yellow';
-  else if (pct >= 80) label = 'Green';
-  document.getElementById('strength-text').textContent = label;
+// ══ HELPERS ══
+function setStrength(pct) {
+  document.getElementById('str-fill').style.width = pct+'%';
+  let v='—';
+  if (pct>0&&pct<25) v=t('data_red');
+  else if (pct>=25&&pct<50) v=t('data_orange');
+  else if (pct>=50&&pct<80) v=t('data_yellow');
+  else if (pct>=80) v=t('data_green');
+  document.getElementById('str-val').textContent = v;
 }
-
-function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
-
-// Enter key on API screen
-document.getElementById('apikey-input').addEventListener('keydown', e => {
-  if (e.key === 'Enter') saveApiKey();
-});
+function sleep(ms){ return new Promise(r=>setTimeout(r,ms)); }
 </script>
 
 </body>
