@@ -1361,18 +1361,25 @@ async function runAnalysis() {
   animKw();
   const msgs = [
     ...history,
-    { role:'user', content:`Generate the complete profile report now. Respond ONLY with a raw JSON object, no markdown, no backticks, no explanation. Just the JSON.` }
+    { role:'user', content:`Generate the complete profile report now. Respond ONLY with a raw JSON object. No markdown, no backticks, no explanation. Start directly with { and end with }.` }
   ];
-  let data;
+  let data = fallbackReport();
   try {
     const r = await claude(msgs, true);
-    data = parseReport(r);
+    const parsed = parseReport(r);
+    if (parsed && parsed.archetype_primary) data = parsed;
   } catch(e) {
-    data = fallbackReport();
+    console.log('Using fallback report:', e);
   }
-  await sleep(2500);
-  renderReport(data);
-  go('s-report');
+  await sleep(2000);
+  try {
+    renderReport(data);
+    go('s-report');
+  } catch(e) {
+    console.error('Render error:', e);
+    go('s-report');
+    document.getElementById('rpt-body').innerHTML = '<div style="padding:40px;text-align:center;color:#C9A84C;font-family:Cormorant Garamond,serif;font-size:18px">Report ready. Please start a new session for full results.</div>';
+  }
 }
 
 function animKw() {
@@ -1537,6 +1544,19 @@ When asked to generate the report, respond ONLY with this JSON (no other text, n
   ]
 }`;
 
+async function fetchWithTimeout(url, options, ms=20000) {
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), ms);
+  try {
+    const res = await fetch(url, {...options, signal: controller.signal});
+    clearTimeout(timer);
+    return res;
+  } catch(e) {
+    clearTimeout(timer);
+    throw e;
+  }
+}
+
 async function claude(msgs, isAnalysis) {
   const payload = {
     model:'claude-sonnet-4-6',
@@ -1552,7 +1572,8 @@ async function claude(msgs, isAnalysis) {
   ];
   for (const ep of endpoints) {
     try {
-      const res = await fetch(ep.url,{method:'POST',headers:ep.headers,body:JSON.stringify(payload)});
+      const timeout = isAnalysis ? 25000 : 15000;
+      const res = await fetchWithTimeout(ep.url,{method:'POST',headers:ep.headers,body:JSON.stringify(payload)},timeout);
       if (!res.ok) continue;
       const data = await res.json();
       if (data.content?.[0]?.text) return data.content[0].text;
